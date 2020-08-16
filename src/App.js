@@ -16,9 +16,9 @@ class App extends Component {
   }
   fire = (e) => {
     let content = [];
-    let link = "http://localhost/static/test.json";
+    let link = "https://api.jsonbin.io/b/5f39b80aaf209d1016bcced3";
     this.setState({ loader: true });
-    axios.post(link).then((response) => {
+    axios.get(link).then((response) => {
       console.log(response.data);
       content = [...this.state.articleList, ...response.data];
       this.setState({ articleList: content });
@@ -42,6 +42,7 @@ class App extends Component {
           searching={this.state.searching}
         />
         <Grid container direction="column" alignItems="center" spacing={4}>
+          <Grid item></Grid>
           <Grid item></Grid>
           <Grid item>
             <Cards articleList={this.state.articleList} />
