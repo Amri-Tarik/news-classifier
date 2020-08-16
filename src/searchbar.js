@@ -87,7 +87,7 @@ class Searchbar extends Component {
       if (typeof categories[cat] != "boolean") {
         return (
           <Grid item xs={6} md={3} key={index}>
-            <FormControl>
+            <FormControl fullWidth>
               <Select
                 color="primary"
                 multiple
