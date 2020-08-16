@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Cards from "./Cards";
 import axios from "axios";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { Grid, Box } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import Header from "./Header";
 
 class App extends Component {

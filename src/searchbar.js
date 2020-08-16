@@ -3,23 +3,18 @@ import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import {
   TextField,
-  Paper,
   Grid,
   FormControlLabel,
   Checkbox,
-  Box,
-  Container,
   FormControl,
-  InputLabel,
   Select,
-  Input,
   MenuItem,
   ListItemText,
   OutlinedInput,
   ButtonGroup,
   Button,
 } from "@material-ui/core";
-import { NearMeSharp } from "@material-ui/icons";
+
 const disable_all = {
   sources: { le360: false, hespress: false, welovebuzz: false },
   complexité: { complexe: false, simple: false },
