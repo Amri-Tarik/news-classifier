@@ -1,13 +1,18 @@
 .paperAnim {
   align-self: center;
   position: fixed;
-  transform: scale(0.5);
-  /* top: -10vh; */
-  /* max-width: 150% !important; */
+  transform: scale(0.25);
+  /*top: -10vh;
+  */ /*max-width: 150% !important;
+  */
   animation-name: catslide;
   animation-duration: 1s;
   animation-fill-mode: forwards;
   -webkit-animation-fill-mode: forwards;
+  -webkit-transform: scale(0.25);
+  -moz-transform: scale(0.25);
+  -ms-transform: scale(0.25);
+  -o-transform: scale(0.25);
 }
 
 .searchbar {
@@ -31,11 +36,11 @@
     -o-transform: translateY(130%);
   }
   to {
-    transform: translateY(65%);
-    -webkit-transform: translateY(65%);
-    -moz-transform: translateY(65%);
-    -ms-transform: translateY(65%);
-    -o-transform: translateY(65%);
+    transform: translateY(55%);
+    -webkit-transform: translateY(55%);
+    -moz-transform: translateY(55%);
+    -ms-transform: translateY(55%);
+    -o-transform: translateY(55%);
   }
 }
 

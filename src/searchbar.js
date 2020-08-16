@@ -16,9 +16,88 @@ import {
   MenuItem,
   ListItemText,
   OutlinedInput,
+  ButtonGroup,
+  Button,
 } from "@material-ui/core";
 import { NearMeSharp } from "@material-ui/icons";
-
+const disable_all = {
+  sources: { le360: false, hespress: false, welovebuzz: false },
+  complexité: { complexe: false, simple: false },
+  émotion: { positif: false, negatif: false, neutre: false },
+  politique: {
+    politique: false,
+    "parties politiques": false,
+    parlement: false,
+    Histoire: false,
+  },
+  economie: {
+    economie: false,
+    tourisme: false,
+    bourse: false,
+    immobilier: false,
+  },
+  sport: { sport: false, Football: false },
+  société: { société: false, "réseaux sociaux": false },
+  santé: { santé: false, covid: false },
+  science: { science: false, agriculture: false, espace: false },
+  nature: { nature: false, animaux: false },
+  religion: {
+    religion: false,
+    "eid el adha": false,
+  },
+  revue: { revue: false, "revue de presse": false, "revue du web": false },
+  rumeurs: false,
+  statistiques: false,
+  célébrité: false,
+  divertissement: false,
+  monde: false,
+  culture: false,
+  "Local Trends": false,
+  "loi / Décret": false,
+  terrorisme: false,
+  meteo: false,
+  "blessures,accidents et décès": false,
+  education: false,
+};
+const enable_all = {
+  sources: { le360: true, hespress: true, welovebuzz: true },
+  complexité: { complexe: true, simple: true },
+  émotion: { positif: true, negatif: true, neutre: true },
+  politique: {
+    politique: true,
+    "parties politiques": true,
+    parlement: true,
+    Histoire: true,
+  },
+  economie: {
+    economie: true,
+    tourisme: true,
+    bourse: true,
+    immobilier: true,
+  },
+  sport: { sport: true, Football: true },
+  société: { société: true, "réseaux sociaux": true },
+  santé: { santé: true, covid: true },
+  science: { science: true, agriculture: true, espace: true },
+  nature: { nature: true, animaux: true },
+  religion: {
+    religion: true,
+    "eid el adha": true,
+  },
+  revue: { revue: true, "revue de presse": true, "revue du web": true },
+  rumeurs: true,
+  statistiques: true,
+  célébrité: true,
+  divertissement: true,
+  monde: true,
+  culture: true,
+  "Local Trends": true,
+  "loi / Décret": true,
+  terrorisme: true,
+  meteo: true,
+  "blessures,accidents et décès": true,
+  education: true,
+};
 class Searchbar extends Component {
   state = {
     categories: {
@@ -80,6 +159,17 @@ class Searchbar extends Component {
         [cat]: fullcat,
       },
     }));
+  };
+  enable_tags = () => {
+    this.setState({
+      categories: enable_all,
+    });
+  };
+  disable_tags = () => {
+    this.setState({
+      categories: disable_all,
+    });
+    console.log(this.state.categories);
   };
   render() {
     const categories = this.state.categories;
@@ -149,6 +239,16 @@ class Searchbar extends Component {
         </Grid>
         <Grid xs={10} item className="paperAnim">
           <Grid spacing={2} container>
+            <Grid item xs={12}>
+              <ButtonGroup variant="text" color="primary">
+                <Button onClick={this.enable_tags}>
+                  selectionner toutes les categories
+                </Button>
+                <Button onClick={this.disable_tags}>
+                  deselectioner toutes les categories
+                </Button>
+              </ButtonGroup>
+            </Grid>
             {switches}
           </Grid>
         </Grid>
