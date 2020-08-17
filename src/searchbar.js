@@ -199,7 +199,7 @@ class Searchbar extends Component {
         );
       } else {
         return (
-          <Grid item xs={6} md={3} key={index}>
+          <Grid item xs={5} md={3} key={index}>
             <FormControlLabel
               control={
                 <Checkbox
@@ -217,7 +217,7 @@ class Searchbar extends Component {
     });
     return (
       <Grid container direction="column" justify="center" alignItems="stretch">
-        <Grid item xs={12}>
+        <Grid item xs={12} style={{ transform: "scale(1.5)" }}>
           <form onSubmit={this.props.search} noValidate autoComplete="off">
             <TextField
               className="searchbar"
@@ -234,7 +234,8 @@ class Searchbar extends Component {
         </Grid>
         <Grid xs={10} item className="paperAnim">
           <Grid spacing={2} container>
-            <Grid item xs={12}>
+            <Grid item xs={0} md={2}></Grid>
+            <Grid item xs={12} md={8}>
               <ButtonGroup variant="text" color="primary">
                 <Button onClick={this.enable_tags}>
                   selectionner toutes les categories
