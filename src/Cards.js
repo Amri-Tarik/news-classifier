@@ -30,9 +30,6 @@ const icons = {
 };
 
 class Cards extends Component {
-  Clicked = (element) => {
-    console.log(element);
-  };
   render() {
     const { articleList } = this.props;
     const cardList = articleList.map((article, keys) => {
@@ -45,7 +42,7 @@ class Cards extends Component {
               label={element}
               icon={icons[element]}
               color="primary"
-              onClick={() => this.Clicked(element)}
+              // onClick={}
             />
           </Grid>
         );
@@ -56,7 +53,7 @@ class Cards extends Component {
           <Card style={{ height: 430 }}>
             <CardHeader subheader={article.source} style={{ height: 0 }} />
             <CardActionArea
-              onClick={() => (window.location.href = article.content)}
+              onClick={() => window.open(article.content, "_blank")}
             >
               <CardMedia
                 image={article.image}
@@ -76,7 +73,14 @@ class Cards extends Component {
                     noWrap={true}
                     style={{ fontSize: "1.2rem" }}
                   >
-                    {article.title}
+                    <a
+                      href={article.content}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ all: "inherit", cursor: "pointer" }}
+                    >
+                      {article.title}
+                    </a>
                   </Typography>
                 </Grid>
                 <Grid item>

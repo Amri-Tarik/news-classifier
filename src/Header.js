@@ -20,7 +20,12 @@ class Header extends Component {
       >
         <AppBar>
           <Toolbar>
-            <IconButton edge="start" color="inherit" aria-label="menu">
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              onClick={() => this.props.drawer(true)}
+            >
               <MenuIcon />
             </IconButton>
             <Typography variant="h4">News-classifier</Typography>

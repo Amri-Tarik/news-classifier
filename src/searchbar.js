@@ -16,9 +16,6 @@ import {
 } from "@material-ui/core";
 
 const disable_all = {
-  sources: { le360: false, hespress: false, welovebuzz: false },
-  complexité: { complexe: false, simple: false },
-  émotion: { positif: false, negatif: false, neutre: false },
   politique: {
     politique: false,
     "parties politiques": false,
@@ -51,13 +48,10 @@ const disable_all = {
   "loi / Décret": false,
   terrorisme: false,
   meteo: false,
-  "blessures,accidents et décès": false,
+  "blessures, accidents et décès": false,
   education: false,
 };
 const enable_all = {
-  sources: { le360: true, hespress: true, welovebuzz: true },
-  complexité: { complexe: true, simple: true },
-  émotion: { positif: true, negatif: true, neutre: true },
   politique: {
     politique: true,
     "parties politiques": true,
@@ -90,7 +84,7 @@ const enable_all = {
   "loi / Décret": true,
   terrorisme: true,
   meteo: true,
-  "blessures,accidents et décès": true,
+  "blessures, accidents et décès": true,
   education: true,
 };
 class Searchbar extends Component {
@@ -131,7 +125,7 @@ class Searchbar extends Component {
       "loi / Décret": true,
       terrorisme: true,
       meteo: true,
-      "blessures,accidents et décès": true,
+      "blessures, accidents et décès": true,
       education: true,
     },
   };
@@ -156,15 +150,20 @@ class Searchbar extends Component {
     }));
   };
   enable_tags = () => {
-    this.setState({
-      categories: enable_all,
-    });
+    this.setState((prevState) => ({
+      categories: {
+        ...prevState.categories,
+        ...enable_all,
+      },
+    }));
   };
   disable_tags = () => {
-    this.setState({
-      categories: disable_all,
-    });
-    console.log(this.state.categories);
+    this.setState((prevState) => ({
+      categories: {
+        ...prevState.categories,
+        ...disable_all,
+      },
+    }));
   };
   render() {
     const categories = this.state.categories;
@@ -234,7 +233,7 @@ class Searchbar extends Component {
         </Grid>
         <Grid xs={10} item className="paperAnim">
           <Grid spacing={2} container>
-            <Grid item xs={0} md={2}></Grid>
+            <Grid item md={3}></Grid>
             <Grid item xs={12} md={8}>
               <ButtonGroup variant="text" color="primary">
                 <Button onClick={this.enable_tags}>
