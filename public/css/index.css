@@ -83,7 +83,7 @@
   .paperAnim {
     align-self: center;
     position: fixed;
-    max-height: 90vh;
+    max-height: 80vh;
     overflow: auto;
     max-width: max-content !important;
     width: 95vw;
