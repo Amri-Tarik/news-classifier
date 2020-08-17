@@ -5,7 +5,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import Header from "./Header";
 import Drawer from "./drawer";
-import { DesktopWindows } from "@material-ui/icons";
 class App extends Component {
   state = {
     articleList: [],
