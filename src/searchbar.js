@@ -170,7 +170,7 @@ class Searchbar extends Component {
     const switches = Object.keys(categories).map((cat, index) => {
       if (typeof categories[cat] != "boolean") {
         return (
-          <Grid item xs={6} md={3} key={index}>
+          <Grid item xs={5} md={3} key={index}>
             <FormControl fullWidth>
               <Select
                 color="primary"
