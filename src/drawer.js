@@ -4,45 +4,144 @@ import {
   ListItem,
   ListItemText,
   Divider,
+  ListItemIcon,
 } from "@material-ui/core";
 
+import Icon from "@mdi/react";
+import {
+  mdiSpaceStation,
+  mdiSprout,
+  mdiReact,
+  mdiIslam,
+  mdiSheep,
+  mdiAccountVoice,
+  mdiAccountSwitch,
+  mdiBomb,
+} from "@mdi/js";
+
+import {
+  Web,
+  HourglassEmpty,
+  Mood,
+  MoodBad,
+  SentimentSatisfied,
+  Gavel,
+  AccountBalance,
+  History,
+  AttachMoney,
+  FlightTakeoff,
+  ShowChart,
+  HomeWork,
+  Sports,
+  SportsSoccer,
+  People,
+  Twitter,
+  LocalHospital,
+  Eco,
+  Pets,
+  MenuBook,
+  PersonPin,
+  Deck,
+  Public,
+  CameraEnhance,
+  Cloud,
+  Warning,
+  LocalLibrary,
+  Equalizer,
+} from "@material-ui/icons";
 const cats = [
-  ["sources", "le360", "hespress", "welovebuzz"],
-  ["complexité", "complexe", "simple"],
-  ["sentiments", "positif", "negatif", "neutre"],
-  ["politique", "parties politiques", "parlement", "Histoire"],
-  ["economie", "tourisme", "bourse", "immobilier"],
-  ["sport", "Football"],
-  ["société", "réseaux sociaux"],
-  ["santé", "covid"],
-  ["science", "agriculture", "espace"],
-  ["nature", "animaux"],
-  ["religion", "eid el adha"],
-  ["revue", "revue de presse", "revue du web"],
-  [
-    "rumeurs",
-    "statistiques",
-    "célébrité",
-    "divertissement",
-    "monde",
-    "culture",
-    "Local Trends",
-    "loi / Décret",
-    "terrorisme",
-    "meteo",
-    "blessures, accidents et décès",
-    "education",
-  ],
+  { sources: <Web />, le360: <Web />, hespress: <Web />, welovebuzz: <Web /> },
+  {
+    complexité: (
+      <img
+        alt="complexité"
+        src="https://img.icons8.com/pastel-glyph/24/000000/glasses.png"
+      />
+    ),
+    complexe: (
+      <img
+        alt="complexe"
+        src="https://img.icons8.com/ios/24/000000/circled-c.png"
+      />
+    ),
+    simple: (
+      <img
+        alt="Simple"
+        src="https://img.icons8.com/ios/24/000000/circled-s.png"
+      />
+    ),
+  },
+  {
+    sentiments: <HourglassEmpty />,
+    positif: <Mood />,
+    negatif: <MoodBad />,
+    neutre: <SentimentSatisfied />,
+  },
+  {
+    politique: <Gavel />,
+    "parties politiques": <Gavel />,
+    parlement: <AccountBalance />,
+    Histoire: <History />,
+  },
+  {
+    economie: <AttachMoney />,
+    tourisme: <FlightTakeoff />,
+    bourse: <ShowChart />,
+    immobilier: <HomeWork />,
+  },
+  { sport: <Sports />, Football: <SportsSoccer /> },
+  { société: <People />, "réseaux sociaux": <Twitter /> },
+  {
+    santé: <LocalHospital />,
+    covid: (
+      <img
+        alt="covid"
+        src="https://img.icons8.com/wired/24/000000/coronavirus.png"
+      />
+    ),
+  },
+  {
+    science: <Icon path={mdiReact} title="science" size={1} />,
+    agriculture: <Icon path={mdiSprout} title="agriculture" size={1} />,
+    espace: <Icon path={mdiSpaceStation} title="espace" size={1} />,
+  },
+  { nature: <Eco />, animaux: <Pets /> },
+  {
+    religion: <Icon path={mdiIslam} title="espace" size={1} />,
+    "eid el adha": <Icon path={mdiSheep} title="espace" size={1} />,
+  },
+  {
+    revue: <MenuBook />,
+    "revue de presse": <MenuBook />,
+    "revue du web": <MenuBook />,
+  },
+  {
+    rumeurs: <Icon path={mdiAccountVoice} title="espace" size={1} />,
+    statistiques: <Equalizer />,
+    célébrité: <PersonPin />,
+    divertissement: <Deck />,
+    monde: <Public />,
+    culture: <Icon path={mdiAccountSwitch} title="espace" size={1} />,
+    "Local Trends": <CameraEnhance />,
+    "loi / Décret": <Gavel />,
+    terrorisme: <Icon path={mdiBomb} title="espace" size={1} />,
+    meteo: <Cloud />,
+    "blessures, accidents et décès": <Warning />,
+    education: <LocalLibrary />,
+  },
 ];
 
 class Drawer extends Component {
   render() {
+    let count = 100;
     const cat_list = cats.map((elements) => {
-      let cat_mini_list = elements.map((element, index) => {
-        if (element !== elements[0] && elements[0] !== "rumeurs") {
+      count += 1;
+      let cat_mini_list = Object.keys(elements).map((element, index) => {
+        if (index !== 0 && !("rumeurs" in elements)) {
           return (
             <ListItem button key={index} style={{ width: "250px" }}>
               <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <ListItemIcon>{elements[element]}</ListItemIcon>
               <i>
                 <ListItemText primary={element} />
               </i>
@@ -51,12 +150,13 @@ class Drawer extends Component {
         } else {
           return (
             <ListItem button key={index} style={{ width: "250px" }}>
+              <ListItemIcon>{elements[element]}</ListItemIcon>
               <ListItemText primary={element} />
             </ListItem>
           );
         }
       });
-      cat_mini_list.push(<Divider />);
+      cat_mini_list.push(<Divider key={count} />);
       return cat_mini_list;
     });
     return (

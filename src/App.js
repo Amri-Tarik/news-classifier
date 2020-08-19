@@ -5,6 +5,9 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import Header from "./Header";
 import Drawer from "./drawer";
+
+// reference icon8.com in footer dude dont forget !!!
+
 class App extends Component {
   state = {
     articleList: [],
