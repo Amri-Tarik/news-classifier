@@ -16,12 +16,10 @@ import {
   mdiSheep,
   mdiAccountVoice,
   mdiAccountSwitch,
-  mdiBomb,
 } from "@mdi/js";
 
 import {
   Web,
-  HourglassEmpty,
   Mood,
   MoodBad,
   SentimentSatisfied,
@@ -40,7 +38,6 @@ import {
   Eco,
   Pets,
   MenuBook,
-  PersonPin,
   Deck,
   Public,
   CameraEnhance,
@@ -48,16 +45,18 @@ import {
   Warning,
   LocalLibrary,
   Equalizer,
+  Stars,
 } from "@material-ui/icons";
 const cats = [
   { sources: <Web />, le360: <Web />, hespress: <Web />, welovebuzz: <Web /> },
+  // {
+  //   complexité: (
+  //     <img
+  //       alt="complexité"
+  //       src="https://img.icons8.com/pastel-glyph/24/000000/glasses.png"
+  //     />
+  // ),
   {
-    complexité: (
-      <img
-        alt="complexité"
-        src="https://img.icons8.com/pastel-glyph/24/000000/glasses.png"
-      />
-    ),
     complexe: (
       <img
         alt="complexe"
@@ -72,7 +71,7 @@ const cats = [
     ),
   },
   {
-    sentiments: <HourglassEmpty />,
+    // sentiments: <HourglassEmpty />,
     positif: <Mood />,
     negatif: <MoodBad />,
     neutre: <SentimentSatisfied />,
@@ -118,13 +117,18 @@ const cats = [
   {
     rumeurs: <Icon path={mdiAccountVoice} title="espace" size={1} />,
     statistiques: <Equalizer />,
-    célébrité: <PersonPin />,
+    célébrité: <Stars />,
     divertissement: <Deck />,
     monde: <Public />,
     culture: <Icon path={mdiAccountSwitch} title="espace" size={1} />,
     "Local Trends": <CameraEnhance />,
     "loi / Décret": <Gavel />,
-    terrorisme: <Icon path={mdiBomb} title="espace" size={1} />,
+    terrorisme: (
+      <img
+        alt="terrorism"
+        src="https://img.icons8.com/metro/26/000000/assault-rifle.png"
+      />
+    ),
     meteo: <Cloud />,
     "blessures, accidents et décès": <Warning />,
     education: <LocalLibrary />,
@@ -137,7 +141,12 @@ class Drawer extends Component {
     const cat_list = cats.map((elements) => {
       count += 1;
       let cat_mini_list = Object.keys(elements).map((element, index) => {
-        if (index !== 0 && !("rumeurs" in elements)) {
+        if (
+          index !== 0 &&
+          !("rumeurs" in elements) &&
+          !("complexe" in elements) &&
+          !("positif" in elements)
+        ) {
           return (
             <ListItem button key={index} style={{ width: "250px" }}>
               <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>

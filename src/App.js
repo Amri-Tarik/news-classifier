@@ -21,7 +21,7 @@ class App extends Component {
   }
   fire = (e) => {
     let content = [];
-    let link = "https://api.jsonbin.io/b/5f39b80aaf209d1016bcced3";
+    let link = "https://api.jsonbin.io/b/5f3d430fb88c04101cf7525a";
     this.setState({ loader: true });
     axios.get(link).then((response) => {
       content = [...this.state.articleList, ...response.data];
@@ -58,19 +58,26 @@ class App extends Component {
           searching={this.state.searching}
           drawer={this.toggleDrawer}
         />
-        <Grid container direction="column" alignItems="center" spacing={4}>
-          <Grid item></Grid>
-          <Grid item></Grid>
-          <Grid item>
-            <Cards articleList={this.state.articleList} />
-          </Grid>
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="stretch"
+          spacing={4}
+        >
+          <Grid item xs={12}></Grid>
+          <Grid item xs={12}></Grid>
+          <Grid item xs={12}></Grid>
+          <Cards articleList={this.state.articleList} />
+          <Grid item xs={2}></Grid>
           {this.state.loader ? (
-            <Grid item>
+            <Grid item xs={2}>
               <CircularProgress />
             </Grid>
           ) : (
             <span />
           )}
+          <Grid item></Grid>
         </Grid>
         <div className={this.state.searching ? "overlay" : "hey"}></div>
       </div>

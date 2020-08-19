@@ -12,6 +12,11 @@
   -webkit-animation-fill-mode: forwards;
 }
 
+.imgicon {
+  filter: invert(100%) contrast(1000%);
+  -webkit-filter: invert(100%) contrast(1000%);
+}
+
 .searchbar {
   animation-name: searchslide;
   animation-duration: 1s;
