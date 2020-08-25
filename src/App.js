@@ -55,7 +55,7 @@ class App extends Component {
     this.fire();
   }
   fire = (e, cat = {}, search = "") => {
-    let content = [];
+    // let content = [];
     let link = "http://localhost:8000";
     this.setState({ loader: true });
     let Data = { search, cat };
