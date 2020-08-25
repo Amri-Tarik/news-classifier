@@ -48,7 +48,9 @@ class Header extends Component {
         </AppBar>
         {this.props.searching ? (
           <Grid item className="searchgrid">
-            <Searchbar search={this.props.SearchOff} />
+            <Searchbar
+              search={(e, cat, search) => this.props.SearchOff(e, cat, search)}
+            />
           </Grid>
         ) : (
           ""

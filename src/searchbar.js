@@ -217,7 +217,13 @@ class Searchbar extends Component {
     return (
       <Grid container direction="column" justify="center" alignItems="stretch">
         <Grid item xs={12} style={{ transform: "scale(1.5)" }}>
-          <form onSubmit={this.props.search} noValidate autoComplete="off">
+          <form
+            onSubmit={(e) => {
+              this.props.search(e, this.state.categories, e.target[0].value);
+            }}
+            noValidate
+            autoComplete="off"
+          >
             <TextField
               className="searchbar"
               fullWidth
