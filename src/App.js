@@ -27,7 +27,7 @@ class App extends Component {
     axios.post(link, Data).then((response) => {
       content = [...this.state.articleList, ...response.data];
       this.setState({ articleList: content });
-      // console.log(response.data);
+      console.log(this.state.articleList);
       this.setState({ loader: false });
       let ratio =
         window.screen.width /
