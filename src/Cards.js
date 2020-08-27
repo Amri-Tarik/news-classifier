@@ -52,6 +52,7 @@ import {
   Equalizer,
   Stars,
 } from "@material-ui/icons";
+import { Container } from "@material-ui/core";
 
 const icons = {
   sources: <Web />,
@@ -127,10 +128,10 @@ const icons = {
 
 class Cards extends Component {
   render() {
+    let chipkeys = 0;
     const { articleList } = this.props;
     const cardList = articleList.map((article, keys) => {
-      var chips = [];
-      var chipkeys = 0;
+      let chips = [];
       article.cat.forEach((element) => {
         chips.push(
           <Grid item key={chipkeys}>
@@ -145,9 +146,16 @@ class Cards extends Component {
         chipkeys++;
       });
       return (
-        <Grid item key={keys} md={5} sm={10} xs={10}>
+        <Grid item key={keys} md={4} sm={10} xs={10}>
           <Card>
-            <CardHeader subheader={article.source} style={{ height: 0 }} />
+            <CardHeader
+              subheader={article.source}
+              style={{
+                height: 0,
+                background:
+                  "-moz-linear-gradient(left, #fea557 0%, #ff782e 100%); /* FF3.6-15 */",
+              }}
+            />
             <CardActionArea
               onClick={() => window.open(article.content, "_blank")}
             >
@@ -205,15 +213,18 @@ class Cards extends Component {
       );
     });
     return (
-      <Grid
-        container
-        direction="row"
-        justify="center"
-        alignItems="center"
-        spacing={3}
-      >
-        {cardList}
-      </Grid>
+      <Container>
+        <Grid
+          className="findme"
+          container
+          direction="row"
+          justify="space-evenly"
+          alignItems="stretch"
+          spacing={2}
+        >
+          {cardList}
+        </Grid>
+      </Container>
     );
   }
 }

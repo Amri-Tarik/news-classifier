@@ -24,23 +24,27 @@ class App extends Component {
     let link = "http://localhost:8000";
     this.setState({ loader: true });
     let Data = { search, cat };
-    axios.post(link, Data).then((response) => {
-      content = [...this.state.articleList, ...response.data];
-      this.setState({ articleList: content });
-      console.log(this.state.articleList);
-      this.setState({ loader: false });
-      let ratio =
-        window.screen.width /
-        document.getElementsByClassName("hey")[0].scrollWidth;
-      if (window.screen.width < 600) {
-        document
-          .getElementsByName("viewport")[0]
-          .setAttribute(
-            "content",
-            "width=device-width, initial-scale=" + ratio
-          );
-      }
-    });
+    axios
+      .post(link, Data)
+      .then((response) => {
+        return JSON.parse(response.data);
+      })
+      .then((response) => {
+        content = [...this.state.articleList, ...response];
+        this.setState({ articleList: content });
+        this.setState({ loader: false });
+        let ratio =
+          window.screen.width /
+          document.getElementsByClassName("hey")[0].scrollWidth;
+        if (window.screen.width < 600) {
+          document
+            .getElementsByName("viewport")[0]
+            .setAttribute(
+              "content",
+              "width=device-width, initial-scale=" + ratio
+            );
+        }
+      });
   };
   SearchOn = (e) => {
     this.setState({ searching: true });
