@@ -26,11 +26,12 @@ class App extends Component {
     let Data = { search, cat };
     axios
       .post(link, Data)
+      // .then((response) => {
+      //   return JSON.parse(response.data);
+      // })
       .then((response) => {
-        return JSON.parse(response.data);
-      })
-      .then((response) => {
-        content = [...this.state.articleList, ...response];
+        content = [...this.state.articleList, ...response.data];
+        content = content.sort(() => Math.random() - 0.5);
         this.setState({ articleList: content });
         this.setState({ loader: false });
         let ratio =

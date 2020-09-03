@@ -51,6 +51,7 @@ import {
   LocalLibrary,
   Equalizer,
   Stars,
+  AssignmentReturnRounded,
 } from "@material-ui/icons";
 import { Container } from "@material-ui/core";
 
@@ -146,28 +147,33 @@ class Cards extends Component {
         chipkeys++;
       });
       return (
-        <Grid item key={keys} md={4} sm={10} xs={10}>
+        <Grid item key={keys} md={4} sm={6} xs={10}>
           <Card>
             <CardHeader
               subheader={article.source}
               style={{
                 height: 0,
-                background:
-                  "-moz-linear-gradient(left, #fea557 0%, #ff782e 100%); /* FF3.6-15 */",
               }}
+              className={article.source}
             />
             <CardActionArea
               onClick={() => window.open(article.content, "_blank")}
             >
               <CardMedia
-                image={article.image}
+                image={() => {
+                  if (article.image == "welovebuzz") {
+                    return "https://www.welovebuzz.com/wp-content/uploads/2019/05/wlb.jpg";
+                  } else {
+                    return article.image;
+                  }
+                }}
                 alt={article.title}
                 title={article.title}
                 component="img"
                 height="200"
               />
             </CardActionArea>
-            <CardContent>
+            <CardContent style={{ background: "WhiteSmoke" }}>
               <Grid container direction="column" spacing={1}>
                 <Grid item xs={12}>
                   <Typography
@@ -203,7 +209,7 @@ class Cards extends Component {
                 </Grid>
               </Grid>
             </CardContent>
-            <CardActions>
+            <CardActions style={{ background: "WhiteSmoke" }}>
               <IconButton aria-label="share">
                 <Share />
               </IconButton>
