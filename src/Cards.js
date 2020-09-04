@@ -154,7 +154,12 @@ class Cards extends Component {
               style={{
                 height: 0,
               }}
-              className={article.source}
+              className={() => {
+                  if (article.source.search("le360") != -1) {
+                    return "le360";
+                  } else {
+                    return article.source;
+                  }}
             />
             <CardActionArea
               onClick={() => window.open(article.content, "_blank")}

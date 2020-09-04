@@ -58,6 +58,10 @@
   background: #f18768;
 }
 
+.LesEco {
+  background: #4c6a4b;
+}
+
 .imgicon {
   filter: invert(100%) contrast(1000%);
   -webkit-filter: invert(100%) contrast(1000%);
