@@ -51,7 +51,6 @@ import {
   LocalLibrary,
   Equalizer,
   Stars,
-  AssignmentReturnRounded,
 } from "@material-ui/icons";
 import { Container } from "@material-ui/core";
 
@@ -155,18 +154,19 @@ class Cards extends Component {
                 height: 0,
               }}
               className={() => {
-                  if (article.source.search("le360") != -1) {
-                    return "le360";
-                  } else {
-                    return article.source;
-                  }}
+                if (article.source.search("le360") !== -1) {
+                  return "le360";
+                } else {
+                  return article.source;
+                }
+              }}
             />
             <CardActionArea
               onClick={() => window.open(article.content, "_blank")}
             >
               <CardMedia
                 image={() => {
-                  if (article.image == "welovebuzz") {
+                  if (article.image === "welovebuzz") {
                     return "https://www.welovebuzz.com/wp-content/uploads/2019/05/wlb.jpg";
                   } else {
                     return article.image;
