@@ -62,6 +62,19 @@
   background: #4c6a4b;
 }
 
+.le360 :hover {
+  cursor: pointer;
+}
+.hespress :hover {
+  cursor: pointer;
+}
+.welovebuzz :hover {
+  cursor: pointer;
+}
+.lesEco :hover {
+  cursor: pointer;
+}
+
 .imgicon {
   filter: invert(100%) contrast(1000%);
   -webkit-filter: invert(100%) contrast(1000%);

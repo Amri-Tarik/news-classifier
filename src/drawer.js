@@ -48,7 +48,15 @@ import {
   Stars,
 } from "@material-ui/icons";
 const cats = [
-  { sources: <Web />, le360: <Web />, hespress: <Web />, welovebuzz: <Web /> },
+  {
+    sources: <Web />,
+    le360: <Web />,
+    lesEco: <Web />,
+    hespress: <Web />,
+    welovebuzz: <Web />,
+    "le360 sport": <Web />,
+    "le360 afrique": <Web />,
+  },
   // {
   //   complexité: (
   //     <img
@@ -122,7 +130,7 @@ const cats = [
     monde: <Public />,
     culture: <Icon path={mdiAccountSwitch} title="espace" size={1} />,
     "Local Trends": <CameraEnhance />,
-    "loi / Décret": <Gavel />,
+    "loi et décret": <Gavel />,
     terrorisme: (
       <img
         alt="terrorism"
@@ -130,7 +138,7 @@ const cats = [
       />
     ),
     meteo: <Cloud />,
-    "blessures, accidents et décès": <Warning />,
+    "blessures accidents et décès": <Warning />,
     education: <LocalLibrary />,
   },
 ];
@@ -148,7 +156,12 @@ class Drawer extends Component {
           !("positif" in elements)
         ) {
           return (
-            <ListItem button key={index} style={{ width: "250px" }}>
+            <ListItem
+              button
+              key={index}
+              onClick={(e) => this.props.clickables(e, { tag: element }, "")}
+              style={{ width: "250px" }}
+            >
               <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
               <ListItemIcon>{elements[element]}</ListItemIcon>
               <i>
@@ -158,7 +171,12 @@ class Drawer extends Component {
           );
         } else {
           return (
-            <ListItem button key={index} style={{ width: "250px" }}>
+            <ListItem
+              button
+              onClick={(e) => this.props.clickables(e, { tag: element }, "")}
+              key={index}
+              style={{ width: "250px" }}
+            >
               <ListItemIcon>{elements[element]}</ListItemIcon>
               <ListItemText primary={element} />
             </ListItem>

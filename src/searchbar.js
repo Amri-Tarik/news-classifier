@@ -45,10 +45,10 @@ const disable_all = {
   monde: false,
   culture: false,
   "Local Trends": false,
-  "loi / Décret": false,
+  "loi et décret": false,
   terrorisme: false,
   meteo: false,
-  "blessures, accidents et décès": false,
+  "blessures accidents et décès": false,
   education: false,
 };
 const enable_all = {
@@ -81,16 +81,23 @@ const enable_all = {
   monde: true,
   culture: true,
   "Local Trends": true,
-  "loi / Décret": true,
+  "loi et décret": true,
   terrorisme: true,
   meteo: true,
-  "blessures, accidents et décès": true,
+  "blessures accidents et décès": true,
   education: true,
 };
 class Searchbar extends Component {
   state = {
     categories: {
-      sources: { le360: true, hespress: true, welovebuzz: true },
+      sources: {
+        le360: true,
+        lesEco: true,
+        hespress: true,
+        welovebuzz: true,
+        "le360 sport": true,
+        "le360 afrique": true,
+      },
       complexité: { complexe: true, simple: true },
       émotion: { positif: true, negatif: true, neutre: true },
       politique: {
@@ -122,14 +129,15 @@ class Searchbar extends Component {
       monde: true,
       culture: true,
       "Local Trends": true,
-      "loi / Décret": true,
+      "loi et décret": true,
       terrorisme: true,
       meteo: true,
-      "blessures, accidents et décès": true,
+      "blessures accidents et décès": true,
       education: true,
     },
   };
   handleChange = (e) => {
+    console.log(this.state);
     let cat = e.target.name;
     let value = e.target.checked;
     this.setState((prevState) => ({

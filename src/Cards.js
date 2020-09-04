@@ -113,7 +113,7 @@ const icons = {
   monde: <Public />,
   culture: <Icon path={mdiAccountSwitch} title="espace" size={1} />,
   "Local Trends": <CameraEnhance />,
-  "loi / Décret": <Gavel />,
+  "loi et décret": <Gavel />,
   terrorisme: (
     <img
       className="imgicon"
@@ -122,7 +122,7 @@ const icons = {
     />
   ),
   meteo: <Cloud />,
-  "blessures, accidents et décès": <Warning />,
+  "blessures accidents et décès": <Warning />,
   education: <LocalLibrary />,
 };
 
@@ -139,7 +139,7 @@ class Cards extends Component {
               label={element}
               icon={icons[element]}
               color="primary"
-              // onClick={}
+              onClick={(e) => this.props.clickables(e, { tag: element }, "")}
             />
           </Grid>
         );
@@ -153,25 +153,22 @@ class Cards extends Component {
               style={{
                 height: 0,
               }}
-              className={() => {
-                if (article.source.search("le360") !== -1) {
-                  return "le360";
-                } else {
-                  return article.source;
-                }
-              }}
+              onClick={(e) =>
+                this.props.clickables(e, { tag: article.source }, "")
+              }
+              className={
+                article.source.search("le360") !== -1 ? "le360" : article.source
+              }
             />
             <CardActionArea
               onClick={() => window.open(article.content, "_blank")}
             >
               <CardMedia
-                image={() => {
-                  if (article.image === "welovebuzz") {
-                    return "https://www.welovebuzz.com/wp-content/uploads/2019/05/wlb.jpg";
-                  } else {
-                    return article.image;
-                  }
-                }}
+                image={
+                  article.image === "welovebuzz"
+                    ? "https://www.welovebuzz.com/wp-content/uploads/2019/05/wlb.jpg"
+                    : article.image
+                }
                 alt={article.title}
                 title={article.title}
                 component="img"

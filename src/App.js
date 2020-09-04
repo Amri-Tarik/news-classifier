@@ -20,19 +20,23 @@ class App extends Component {
     this.fire();
   }
   fire = (e, cat = {}, search = "") => {
-    let content = [];
     let link = "http://localhost:8000";
     this.setState({ loader: true });
     let Data = { search, cat };
     axios
       .post(link, Data)
-      // .then((response) => {
-      //   return JSON.parse(response.data);
-      // })
       .then((response) => {
-        content = [...this.state.articleList, ...response.data];
-        content = content.sort(() => Math.random() - 0.5);
-        this.setState({ articleList: content });
+        console.log(response.data);
+        return JSON.parse(response.data);
+      })
+      .then((response) => {
+        if (response.dataError) {
+          let data = [];
+          this.setState({ articleList: data });
+          console.log("ydnaa fih a ayoub");
+        } else {
+          this.setState({ articleList: response });
+        }
         this.setState({ loader: false });
         let ratio =
           window.screen.width /
@@ -52,8 +56,6 @@ class App extends Component {
   };
   SearchOff = (e, cat, search) => {
     this.setState({ searching: false });
-    console.log(search);
-    console.log(cat);
     this.fire(e, cat, search);
   };
   toggleDrawer = (open) => {
@@ -64,7 +66,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Drawer anchor={this.state.anchor} toggleDrawer={this.toggleDrawer} />
+        <Drawer
+          anchor={this.state.anchor}
+          clickables={(e, cat, search) => this.fire(e, cat, search)}
+          toggleDrawer={this.toggleDrawer}
+        />
         <Header
           search={this.SearchOn}
           SearchOff={(e, cat, search) => this.SearchOff(e, cat, search)}
@@ -81,7 +87,10 @@ class App extends Component {
           <Grid item xs={12}></Grid>
           <Grid item xs={12}></Grid>
           <Grid item xs={12}></Grid>
-          <Cards articleList={this.state.articleList} />
+          <Cards
+            articleList={this.state.articleList}
+            clickables={(e, cat, search) => this.fire(e, cat, search)}
+          />
           <Grid item xs={2}></Grid>
           {this.state.loader ? (
             <Grid item xs={2}>
