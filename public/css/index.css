@@ -1,3 +1,43 @@
+.fixin {
+  animation: fixinit 1s ease-out -1s infinite alternate-reverse both;
+  -webkit-animation: fixinit 1s ease-out -1s infinite alternate-reverse both;
+}
+
+.fixinparent {
+  transform: translate(30px, 5px);
+  -webkit-transform: translate(30px, 5px);
+  -moz-transform: translate(30px, 5px);
+  -ms-transform: translate(30px, 5px);
+  -o-transform: translate(30px, 5px);
+}
+
+@keyframes fixinit {
+  from {
+    -webkit-transform-origin: left top;
+    -moz-transform-origin: left top;
+    -ms-transform-origin: left top;
+    -o-transform-origin: left top;
+    transform-origin: left top;
+    transform: rotate(120deg);
+    -webkit-transform: rotate(120deg);
+    -moz-transform: rotate(120deg);
+    -ms-transform: rotate(120deg);
+    -o-transform: rotate(120deg);
+  }
+  to {
+    -webkit-transform-origin: left top;
+    -moz-transform-origin: left top;
+    -ms-transform-origin: left top;
+    -o-transform-origin: left top;
+    transform-origin: left top;
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+  }
+}
+
 .paperAnim {
   align-self: center;
   position: fixed;
@@ -60,6 +100,10 @@
 
 .LesEco {
   background: #4c6a4b;
+}
+
+.something :hover {
+  cursor: pointer;
 }
 
 .le360 :hover {

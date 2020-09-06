@@ -7,8 +7,12 @@ import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import Searchbar from "./searchbar";
 import { Grid } from "@material-ui/core";
+import { ArrowBack } from "@material-ui/icons";
 
 class Header extends Component {
+  state = {
+    isSearching: false,
+  };
   render() {
     return (
       <Grid
@@ -37,11 +41,17 @@ class Header extends Component {
             >
               <IconButton
                 aria-label="Search"
-                onClick={this.props.search}
+                onClick={(e) => {
+                  if (this.props.searching) {
+                    this.props.SearchOff(e, {}, "", true);
+                  } else {
+                    this.props.search();
+                  }
+                }}
                 //   onClick={this.startAnimation}
                 color="inherit"
               >
-                <SearchIcon />
+                {this.props.searching ? <ArrowBack /> : <SearchIcon />}
               </IconButton>
             </div>
           </Toolbar>

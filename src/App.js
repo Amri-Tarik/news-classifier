@@ -5,7 +5,9 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import Header from "./Header";
 import Drawer from "./drawer";
-
+import Button from "@material-ui/core/Button";
+import { Typography, Box } from "@material-ui/core";
+import { Refresh, Build, Storage, Info } from "@material-ui/icons";
 // reference icon8.com in footer dude dont forget !!!
 
 class App extends Component {
@@ -14,6 +16,8 @@ class App extends Component {
     loader: false,
     searching: false,
     anchor: false,
+    server_down: { value: false, cat: {}, search: "" },
+    no_results: true,
   };
 
   componentDidMount() {
@@ -21,19 +25,21 @@ class App extends Component {
   }
   fire = (e, cat = {}, search = "") => {
     let link = "http://localhost:8000";
-    this.setState({ loader: true });
+    this.setState({
+      server_down: { value: false, cat: {}, search: "" },
+      loader: true,
+      no_results: false,
+    });
     let Data = { search, cat };
     axios
       .post(link, Data)
       .then((response) => {
-        console.log(response.data);
         return JSON.parse(response.data);
       })
       .then((response) => {
         if (response.dataError) {
-          let data = [];
-          this.setState({ articleList: data });
-          console.log("ydnaa fih a ayoub");
+          const data = [];
+          this.setState({ articleList: data, no_results: true });
         } else {
           this.setState({ articleList: response });
         }
@@ -49,14 +55,33 @@ class App extends Component {
               "width=device-width, initial-scale=" + ratio
             );
         }
+      })
+      .catch((error) => {
+        if (!error.response) {
+          // network error
+          const data = [];
+          this.setState({ articleList: data });
+          this.setState({
+            loader: false,
+            server_down: { value: true, cat: cat, search: search },
+          });
+          console.log("Error: Network Error");
+        } else {
+          console.log(error.response.data.message);
+        }
       });
   };
   SearchOn = (e) => {
     this.setState({ searching: true });
   };
-  SearchOff = (e, cat, search) => {
+  SearchOff = (e, cat = {}, search = "", no_search = false) => {
     this.setState({ searching: false });
-    this.fire(e, cat, search);
+    if (!no_search) {
+      this.fire(e, cat, search);
+    }
+  };
+  ToggleSearch = () => {
+    this.setState({ searching: false });
   };
   toggleDrawer = (open) => {
     this.setState({
@@ -65,7 +90,14 @@ class App extends Component {
   };
   render() {
     return (
-      <div className="App">
+      <div
+        onKeyDown={(e) => {
+          if (e.key === "Escape") {
+            this.setState({ searching: false });
+          }
+        }}
+        className="App"
+      >
         <Drawer
           anchor={this.state.anchor}
           clickables={(e, cat, search) => this.fire(e, cat, search)}
@@ -87,13 +119,91 @@ class App extends Component {
           <Grid item xs={12}></Grid>
           <Grid item xs={12}></Grid>
           <Grid item xs={12}></Grid>
-          <Cards
-            articleList={this.state.articleList}
-            clickables={(e, cat, search) => this.fire(e, cat, search)}
-          />
+          {this.state.server_down.value ? (
+            <Grid
+              container
+              direction="column"
+              alignItems="center"
+              justify="center"
+              spacing={4}
+            >
+              <Grid item xs={12}>
+                <Typography component={"span"}>
+                  <Box fontWeight="400" style={{ fontSize: "calc(1em + 1vw)" }}>
+                    looks like the server is down !
+                  </Box>
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography
+                  component={"span"}
+                  style={{ alignContent: "center", justifyContent: "center" }}
+                >
+                  <Box style={{ fontSize: "calc(0.5em + 1vw)", zIndex: "2" }}>
+                    we'll try fixing it as fast as possible !
+                    <div
+                      style={{ zIndex: "1", display: "inline-block" }}
+                      className="fixinparent"
+                    >
+                      <Build color="primary" className="fixin" />
+                    </div>
+                    <Storage />
+                  </Box>
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  variant="contained"
+                  startIcon={<Refresh />}
+                  color="primary"
+                  onClick={(e) =>
+                    this.fire(
+                      e,
+                      this.state.server_down.cat,
+                      this.state.server_down.search
+                    )
+                  }
+                >
+                  Retry Search
+                </Button>
+              </Grid>
+            </Grid>
+          ) : this.state.no_results ? (
+            <Grid
+              container
+              direction="column"
+              alignItems="center"
+              justify="center"
+              spacing={4}
+            >
+              <Grid item xs={12}>
+                <Typography component={"span"}>
+                  <Box
+                    fontWeight="400"
+                    style={{ fontSize: "calc(1.4em + 1vw)" }}
+                  >
+                    no results :(
+                  </Box>
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography component={"span"}>
+                  <Info fontSize="small" />
+                  <span style={{ fontSize: "calc(0.7em + 1vw)" }}>
+                    {"    "}try to be more broad !
+                  </span>
+                </Typography>
+              </Grid>
+            </Grid>
+          ) : (
+            <Cards
+              articleList={this.state.articleList}
+              clickables={(e, cat, search) => this.fire(e, cat, search)}
+            />
+          )}
           <Grid item xs={2}></Grid>
           {this.state.loader ? (
-            <Grid item xs={2}>
+            <Grid item xs={12} style={{ textAlign: "center" }}>
               <CircularProgress />
             </Grid>
           ) : (

@@ -137,7 +137,6 @@ class Searchbar extends Component {
     },
   };
   handleChange = (e) => {
-    console.log(this.state);
     let cat = e.target.name;
     let value = e.target.checked;
     this.setState((prevState) => ({
@@ -236,9 +235,17 @@ class Searchbar extends Component {
               className="searchbar"
               fullWidth
               InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon />
+                endAdornment: (
+                  <InputAdornment className="something" position="end">
+                    <SearchIcon
+                      onClick={(e) => {
+                        this.props.search(
+                          e,
+                          this.state.categories,
+                          e.target.parentNode.parentNode.children[0].value
+                        );
+                      }}
+                    />
                   </InputAdornment>
                 ),
               }}
