@@ -159,7 +159,10 @@ class Drawer extends Component {
             <ListItem
               button
               key={index}
-              onClick={(e) => this.props.clickables(e, { tag: element }, "")}
+              onClick={(e) => {
+                this.props.clickables(e, { tag: element }, "");
+                this.props.toggleDrawer(false);
+              }}
               style={{ width: "250px" }}
             >
               <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -173,7 +176,10 @@ class Drawer extends Component {
           return (
             <ListItem
               button
-              onClick={(e) => this.props.clickables(e, { tag: element }, "")}
+              onClick={(e) => {
+                this.props.clickables(e, { tag: element }, "");
+                this.props.toggleDrawer(false);
+              }}
               key={index}
               style={{ width: "250px" }}
             >

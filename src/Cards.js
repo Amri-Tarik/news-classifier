@@ -52,7 +52,7 @@ import {
   Equalizer,
   Stars,
 } from "@material-ui/icons";
-import { Container } from "@material-ui/core";
+import { Container, Box } from "@material-ui/core";
 
 const icons = {
   sources: <Web />,
@@ -147,19 +147,30 @@ class Cards extends Component {
       });
       return (
         <Grid item key={keys} md={4} sm={6} xs={10}>
-          <Card>
-            <CardHeader
-              subheader={article.source}
-              style={{
-                height: 0,
-              }}
-              onClick={(e) =>
-                this.props.clickables(e, { tag: article.source }, "")
-              }
-              className={
-                article.source.search("le360") !== -1 ? "le360" : article.source
-              }
-            />
+          <Card
+            style={{
+              background: "WhiteSmoke",
+              position: "relative",
+              height: "100% ",
+            }}
+          >
+            <Typography>
+              <CardHeader
+                subheader={article.source}
+                disableTypography={true}
+                style={{
+                  height: 0,
+                }}
+                onClick={(e) =>
+                  this.props.clickables(e, { tag: article.source }, "")
+                }
+                className={
+                  article.source.search("le360") !== -1
+                    ? "le360"
+                    : article.source
+                }
+              />
+            </Typography>
             <CardActionArea
               onClick={() => window.open(article.content, "_blank")}
             >
@@ -176,13 +187,13 @@ class Cards extends Component {
               />
             </CardActionArea>
             <CardContent style={{ background: "WhiteSmoke" }}>
-              <Grid container direction="column" spacing={1}>
+              <Grid container direction="row" alignItems="stretch" spacing={2}>
                 <Grid item xs={12}>
                   <Typography
+                    // wordWrap="break-word"
                     gutterBottom
                     variant="h5"
                     component="h2"
-                    noWrap={true}
                     style={{ fontSize: "1.2rem" }}
                   >
                     <a
@@ -195,7 +206,7 @@ class Cards extends Component {
                     </a>
                   </Typography>
                 </Grid>
-                <Grid item>
+                <Grid item xs={12}>
                   <Typography
                     variant="body2"
                     color="textSecondary"
@@ -204,14 +215,23 @@ class Cards extends Component {
                     {article.date}
                   </Typography>
                 </Grid>
-                <Grid item>
+                <Grid item xs={12}>
                   <Grid container spacing={1}>
                     {chips}
                   </Grid>
                 </Grid>
+                <Grid item xs={12}>
+                  <Box style={{ height: "40px" }} />
+                </Grid>
               </Grid>
             </CardContent>
-            <CardActions style={{ background: "WhiteSmoke" }}>
+            <CardActions
+              style={{
+                background: "WhiteSmoke",
+                position: "absolute",
+                bottom: "0px",
+              }}
+            >
               <IconButton aria-label="share">
                 <Share />
               </IconButton>
@@ -226,7 +246,7 @@ class Cards extends Component {
           className="findme"
           container
           direction="row"
-          justify="space-evenly"
+          justify="center"
           alignItems="stretch"
           spacing={2}
         >

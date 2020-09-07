@@ -7,7 +7,8 @@ import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import Searchbar from "./searchbar";
 import { Grid } from "@material-ui/core";
-import { ArrowBack } from "@material-ui/icons";
+import { ArrowBack, Home } from "@material-ui/icons";
+import Breadcrump from "./breadcrump";
 
 class Header extends Component {
   state = {
@@ -22,7 +23,7 @@ class Header extends Component {
         justify="flex-start"
         alignItems="center"
       >
-        <AppBar>
+        <AppBar position="fixed">
           <Toolbar>
             <IconButton
               edge="start"
@@ -40,6 +41,13 @@ class Header extends Component {
               }}
             >
               <IconButton
+                aria-label="home"
+                onCLick={(e) => this.props.SearchOff(e, {}, "")}
+                color="inherit"
+              >
+                <Home />
+              </IconButton>
+              <IconButton
                 aria-label="Search"
                 onClick={(e) => {
                   if (this.props.searching) {
@@ -56,6 +64,7 @@ class Header extends Component {
             </div>
           </Toolbar>
         </AppBar>
+
         {this.props.searching ? (
           <Grid item className="searchgrid">
             <Searchbar
@@ -63,7 +72,7 @@ class Header extends Component {
             />
           </Grid>
         ) : (
-          ""
+          <Breadcrump listing={this.props.listing} />
         )}
       </Grid>
     );

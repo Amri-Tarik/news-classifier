@@ -11,6 +11,19 @@ import { Refresh, Build, Storage, Info } from "@material-ui/icons";
 // reference icon8.com in footer dude dont forget !!!
 
 class App extends Component {
+  constructor() {
+    super();
+    this.unload.bind(this);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("beforeunload", this.unload);
+  }
+
+  unload(e) {
+    let blob = new Blob([JSON.stringify(["client exited"])]);
+    navigator.sendBeacon("http://localhost:8000/test", blob);
+  }
   state = {
     articleList: [],
     loader: false,
@@ -18,12 +31,22 @@ class App extends Component {
     anchor: false,
     server_down: { value: false, cat: {}, search: "" },
     no_results: true,
+    breadcrump: [],
   };
 
   componentDidMount() {
     this.fire();
+    window.addEventListener("beforeunload", this.unload);
   }
   fire = (e, cat = {}, search = "") => {
+    document.getElementById("root").style.cursor = "progress";
+    if ((!search && !cat.tag) || cat.tag === "sources") {
+      this.setState({ breadcrump: [] });
+    } else if (!cat.tag) {
+      this.setState({ breadcrump: ["search", search] });
+    } else {
+      this.setState({ breadcrump: ["tag", cat.tag] });
+    }
     let link = "http://localhost:8000";
     this.setState({
       server_down: { value: false, cat: {}, search: "" },
@@ -55,6 +78,7 @@ class App extends Component {
               "width=device-width, initial-scale=" + ratio
             );
         }
+        document.getElementById("root").style.cursor = "default";
       })
       .catch((error) => {
         if (!error.response) {
@@ -66,8 +90,10 @@ class App extends Component {
             server_down: { value: true, cat: cat, search: search },
           });
           console.log("Error: Network Error");
+          document.getElementById("root").style.cursor = "default";
         } else {
           console.log(error.response.data.message);
+          document.getElementById("root").style.cursor = "default";
         }
       });
   };
@@ -108,6 +134,7 @@ class App extends Component {
           SearchOff={(e, cat, search) => this.SearchOff(e, cat, search)}
           searching={this.state.searching}
           drawer={this.toggleDrawer}
+          listing={this.state.breadcrump}
         />
         <Grid
           container
@@ -118,7 +145,16 @@ class App extends Component {
         >
           <Grid item xs={12}></Grid>
           <Grid item xs={12}></Grid>
-          <Grid item xs={12}></Grid>
+
+          {this.state.breadcrump.length ? (
+            <>
+              <Grid item xs={12}></Grid>
+              <Grid item xs={12}></Grid>
+            </>
+          ) : (
+            <Grid item xs={12}></Grid>
+          )}
+
           {this.state.server_down.value ? (
             <Grid
               container

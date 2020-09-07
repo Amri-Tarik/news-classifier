@@ -98,8 +98,9 @@
   background: #f18768;
 }
 
-.LesEco {
-  background: #4c6a4b;
+.lesEco {
+  background-color: #4c6a4b;
+  color: white !important;
 }
 
 .something :hover {
@@ -129,6 +130,30 @@
   animation-duration: 1s;
   animation-fill-mode: forwards;
   -webkit-animation-fill-mode: forwards;
+}
+
+.smoothdrop {
+  animation-name: smoothslide;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+}
+
+@keyframes smoothslide {
+  from {
+    transform: translateY(0vh);
+    -webkit-transform: translateY(0vh);
+    -moz-transform: translateY(0vh);
+    -ms-transform: translateY(0vh);
+    -o-transform: translateY(0vh);
+  }
+  to {
+    transform: translateY(11vh);
+    -webkit-transform: translateY(11vh);
+    -moz-transform: translateY(11vh);
+    -ms-transform: translateY(11vh);
+    -o-transform: translateY(11vh);
+  }
 }
 
 @keyframes catslide {
