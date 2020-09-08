@@ -95,11 +95,11 @@
 }
 
 .welovebuzz {
-  background: #f18768;
+  background: #f18768 !important;
 }
 
 .lesEco {
-  background-color: #4c6a4b;
+  background-color: #4c6a4b !important;
   color: white !important;
 }
 
@@ -134,6 +134,7 @@
 
 .breadcrump {
   margin-left: 4vw !important;
+  margin-right: 4vw !important;
   margin-top: 4vh !important;
 }
 

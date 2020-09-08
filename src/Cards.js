@@ -171,9 +171,7 @@ class Cards extends Component {
                 }
               />
             </Typography>
-            <CardActionArea
-              onClick={() => window.open(article.content, "_blank")}
-            >
+            <CardActionArea onClick={() => this.props.sendToPage(article)}>
               <CardMedia
                 image={
                   article.image === "welovebuzz"
@@ -197,7 +195,8 @@ class Cards extends Component {
                     style={{ fontSize: "1.2rem" }}
                   >
                     <a
-                      href={article.content}
+                      href="/#"
+                      onClick={() => this.props.sendToPage(article)}
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{ all: "inherit", cursor: "pointer" }}
