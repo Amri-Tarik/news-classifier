@@ -17,14 +17,14 @@ function Breadcrump(props) {
         <Card
           style={{
             width: "110vw",
-            height: "7vh",
+            height: "10vh",
             backgroundColor: "#4e64d3",
             position: "sticky",
           }}
         >
           <Breadcrumbs
             separator={<NavigateNext fontSize="small" />}
-            style={{ margin: "2vh 4vw" }}
+            className="breadcrump"
             aria-label="breadcrumb"
           >
             {new_list}

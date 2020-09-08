@@ -37,12 +37,12 @@ class Header extends Component {
             <div
               style={{
                 position: "absolute",
-                right: "0.5em",
+                right: "10px",
               }}
             >
               <IconButton
                 aria-label="home"
-                onCLick={(e) => this.props.SearchOff(e, {}, "")}
+                onClick={(e) => this.props.SearchOff(e, {}, "")}
                 color="inherit"
               >
                 <Home />
@@ -68,7 +68,9 @@ class Header extends Component {
         {this.props.searching ? (
           <Grid item className="searchgrid">
             <Searchbar
-              search={(e, cat, search) => this.props.SearchOff(e, cat, search)}
+              search={(e, cat, search, truth) =>
+                this.props.SearchOff(e, cat, search, truth)
+              }
             />
           </Grid>
         ) : (

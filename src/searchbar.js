@@ -226,7 +226,12 @@ class Searchbar extends Component {
         <Grid item xs={12} style={{ transform: "scale(1.5)" }}>
           <form
             onSubmit={(e) => {
-              this.props.search(e, this.state.categories, e.target[0].value);
+              this.props.search(
+                e,
+                this.state.categories,
+                e.target[0].value,
+                false
+              );
             }}
             noValidate
             autoComplete="off"
@@ -242,7 +247,8 @@ class Searchbar extends Component {
                         this.props.search(
                           e,
                           this.state.categories,
-                          e.target.parentNode.parentNode.children[0].value
+                          e.target.parentNode.parentNode.children[0].value,
+                          false
                         );
                       }}
                     />

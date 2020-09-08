@@ -6,8 +6,9 @@ import Grid from "@material-ui/core/Grid";
 import Header from "./Header";
 import Drawer from "./drawer";
 import Button from "@material-ui/core/Button";
-import { Typography, Box } from "@material-ui/core";
+import { Typography, Box, Backdrop } from "@material-ui/core";
 import { Refresh, Build, Storage, Info } from "@material-ui/icons";
+import Pagination from "@material-ui/lab/Pagination";
 // reference icon8.com in footer dude dont forget !!!
 
 class App extends Component {
@@ -22,7 +23,7 @@ class App extends Component {
 
   unload(e) {
     let blob = new Blob([JSON.stringify(["client exited"])]);
-    navigator.sendBeacon("http://localhost:8000/test", blob);
+    navigator.sendBeacon("http://localhost:8000/test/", blob);
   }
   state = {
     articleList: [],
@@ -32,6 +33,7 @@ class App extends Component {
     server_down: { value: false, cat: {}, search: "" },
     no_results: true,
     breadcrump: [],
+    pages: 1,
   };
 
   componentDidMount() {
@@ -62,29 +64,22 @@ class App extends Component {
       .then((response) => {
         if (response.dataError) {
           const data = [];
-          this.setState({ articleList: data, no_results: true });
+          this.setState({ articleList: data, no_results: true, pages: 1 });
         } else {
-          this.setState({ articleList: response });
+          console.log(response.articleList);
+          this.setState({
+            articleList: response.articleList,
+            pages: response.pages,
+          });
         }
         this.setState({ loader: false });
-        let ratio =
-          window.screen.width /
-          document.getElementsByClassName("hey")[0].scrollWidth;
-        if (window.screen.width < 600) {
-          document
-            .getElementsByName("viewport")[0]
-            .setAttribute(
-              "content",
-              "width=device-width, initial-scale=" + ratio
-            );
-        }
         document.getElementById("root").style.cursor = "default";
       })
       .catch((error) => {
         if (!error.response) {
           // network error
           const data = [];
-          this.setState({ articleList: data });
+          this.setState({ articleList: data, pages: 1 });
           this.setState({
             loader: false,
             server_down: { value: true, cat: cat, search: search },
@@ -131,11 +126,16 @@ class App extends Component {
         />
         <Header
           search={this.SearchOn}
-          SearchOff={(e, cat, search) => this.SearchOff(e, cat, search)}
+          SearchOff={(e, cat, search, truth) =>
+            this.SearchOff(e, cat, search, truth)
+          }
           searching={this.state.searching}
           drawer={this.toggleDrawer}
           listing={this.state.breadcrump}
         />
+        <Backdrop style={{ zIndex: "3" }} open={this.state.loader}>
+          <CircularProgress color="primary" />
+        </Backdrop>
         <Grid
           container
           direction="row"
@@ -238,15 +238,16 @@ class App extends Component {
             />
           )}
           <Grid item xs={2}></Grid>
-          {this.state.loader ? (
-            <Grid item xs={12} style={{ textAlign: "center" }}>
-              <CircularProgress />
-            </Grid>
-          ) : (
-            <span />
-          )}
           <Grid item></Grid>
         </Grid>
+        <Box>
+          <Pagination
+            onChange={(e, value) => console.log(value)}
+            style={{ margin: "0 auto", width: "fit-content" }}
+            count={this.state.pages}
+            color="primary"
+          />
+        </Box>
         <div className={this.state.searching ? "overlay" : "hey"}></div>
       </div>
     );

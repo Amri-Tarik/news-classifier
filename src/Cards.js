@@ -85,7 +85,7 @@ const icons = {
   bourse: <ShowChart />,
   immobilier: <HomeWork />,
   sport: <Sports />,
-  football: <SportsSoccer />,
+  Football: <SportsSoccer />,
   société: <People />,
   "réseaux sociaux": <Twitter />,
   santé: <LocalHospital />,
@@ -154,7 +154,7 @@ class Cards extends Component {
               height: "100% ",
             }}
           >
-            <Typography>
+            <Typography component="span">
               <CardHeader
                 subheader={article.source}
                 disableTypography={true}
