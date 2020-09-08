@@ -304,3 +304,10 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #999;
 }
+
+iframe {
+  width: 100vw;
+  height: -moz-available;
+  height: -webkit-fill-available;
+  height: fill-available;
+}

@@ -17,14 +17,6 @@ class Home extends Component {
     this.unload.bind(this);
   }
 
-  componentWillUnmount() {
-    window.removeEventListener("beforeunload", this.unload);
-  }
-
-  unload(e) {
-    let blob = new Blob([JSON.stringify(["client exited"])]);
-    navigator.sendBeacon("http://localhost:8000/test/", blob);
-  }
   state = {
     articleList: [],
     loader: false,
@@ -48,7 +40,6 @@ class Home extends Component {
     } else {
       this.fire();
     }
-    window.addEventListener("beforeunload", this.unload);
   }
 
   sendToPage = (article) => {

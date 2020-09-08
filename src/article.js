@@ -116,15 +116,7 @@ class Article extends Component {
               </Grid>
             </Grid>
           </Card>
-          <iframe
-            style={{
-              width: "100vw",
-              height: "-moz-available",
-              height: "-webkit-fill-available",
-            }}
-            title={title}
-            src={content}
-          />
+          <iframe title={title} src={content} />
         </Box>
       </div>
     );
