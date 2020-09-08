@@ -12,11 +12,6 @@ import Pagination from "@material-ui/lab/Pagination";
 // reference icon8.com in footer dude dont forget !!!
 
 class Home extends Component {
-  constructor() {
-    super();
-    this.unload.bind(this);
-  }
-
   state = {
     articleList: [],
     loader: false,
