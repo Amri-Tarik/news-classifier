@@ -226,6 +226,7 @@ class Searchbar extends Component {
         <Grid item xs={12} style={{ transform: "scale(1.5)" }}>
           <form
             onSubmit={(e) => {
+              e.preventDefault();
               this.props.search(
                 e,
                 this.state.categories,

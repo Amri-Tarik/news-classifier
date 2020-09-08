@@ -34,14 +34,55 @@ class App extends Component {
     no_results: true,
     breadcrump: [],
     pages: 1,
+    current: 1,
   };
 
   componentDidMount() {
     this.fire();
     window.addEventListener("beforeunload", this.unload);
   }
+  pageFire = (page) => {
+    this.setState({ page: page }, () => console.log(this.state.page));
+    let link = "http://localhost:8000";
+    let Data = { page: page };
+    axios
+      .post(link, Data)
+      .then((response) => {
+        return JSON.parse(response.data);
+      })
+      .then((response) => {
+        if (response.dataError) {
+          const data = [];
+          this.setState({ articleList: data, no_results: true, pages: 1 });
+        } else {
+          this.setState({
+            articleList: response.articleList,
+            pages: response.pages,
+          });
+        }
+        this.setState({ loader: false });
+      })
+      .catch((error) => {
+        if (!error.response) {
+          // network error
+          const data = [];
+          this.setState({ articleList: data, pages: 1 });
+          this.setState({
+            loader: false,
+            server_down: {
+              value: true,
+              cat: this.state.server_down.cat,
+              search: this.state.server_down.search,
+            },
+          });
+          console.log("Error: Network Error");
+        } else {
+          console.log(error.response.data.message);
+        }
+      });
+  };
+
   fire = (e, cat = {}, search = "") => {
-    document.getElementById("root").style.cursor = "progress";
     if ((!search && !cat.tag) || cat.tag === "sources") {
       this.setState({ breadcrump: [] });
     } else if (!cat.tag) {
@@ -51,7 +92,7 @@ class App extends Component {
     }
     let link = "http://localhost:8000";
     this.setState({
-      server_down: { value: false, cat: {}, search: "" },
+      server_down: { value: false, cat: cat, search: search },
       loader: true,
       no_results: false,
     });
@@ -66,14 +107,12 @@ class App extends Component {
           const data = [];
           this.setState({ articleList: data, no_results: true, pages: 1 });
         } else {
-          console.log(response.articleList);
           this.setState({
             articleList: response.articleList,
             pages: response.pages,
           });
         }
         this.setState({ loader: false });
-        document.getElementById("root").style.cursor = "default";
       })
       .catch((error) => {
         if (!error.response) {
@@ -85,10 +124,8 @@ class App extends Component {
             server_down: { value: true, cat: cat, search: search },
           });
           console.log("Error: Network Error");
-          document.getElementById("root").style.cursor = "default";
         } else {
           console.log(error.response.data.message);
-          document.getElementById("root").style.cursor = "default";
         }
       });
   };
@@ -237,12 +274,13 @@ class App extends Component {
               clickables={(e, cat, search) => this.fire(e, cat, search)}
             />
           )}
-          <Grid item xs={2}></Grid>
-          <Grid item></Grid>
+          <Grid item xs={12}></Grid>
+          <Grid item xs={12}></Grid>
         </Grid>
-        <Box>
+        <Box style={{ width: "100%", position: "absolute", bottom: "0" }}>
           <Pagination
-            onChange={(e, value) => console.log(value)}
+            onChange={(e, value) => this.pageFire(value)}
+            page={this.state.current}
             style={{ margin: "0 auto", width: "fit-content" }}
             count={this.state.pages}
             color="primary"
