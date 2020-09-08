@@ -307,7 +307,15 @@
 
 iframe {
   width: 100vw;
-  height: -moz-available;
-  height: -webkit-fill-available;
-  height: fill-available;
+  flex: 1;
+}
+
+.flexing {
+  display: flex;
+  flex-direction: column;
+}
+
+html,
+body {
+  height: 100%;
 }

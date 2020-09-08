@@ -72,8 +72,13 @@ class Article extends Component {
           drawer={this.toggleDrawer}
         />
         <Box
-          className={" smoothdrop"}
-          style={{ position: "absolute", left: "-8px", top: "-1vh" }}
+          className="flexing smoothdrop"
+          style={{
+            position: "absolute",
+            left: "-8px",
+            top: "-1vh",
+            height: "100vh",
+          }}
         >
           <Card
             style={{

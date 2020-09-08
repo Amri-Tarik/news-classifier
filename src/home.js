@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Header from "./Header";
 import Drawer from "./drawer";
 import Button from "@material-ui/core/Button";
-import { Typography, Box, Backdrop } from "@material-ui/core";
+import { Typography, Box, Backdrop, Card } from "@material-ui/core";
 import { Refresh, Build, Storage, Info } from "@material-ui/icons";
 import Pagination from "@material-ui/lab/Pagination";
 // reference icon8.com in footer dude dont forget !!!
@@ -294,14 +294,28 @@ class Home extends Component {
           <Grid item xs={12}></Grid>
           <Grid item xs={12}></Grid>
         </Grid>
-        <Box style={{ width: "100%", position: "absolute", bottom: "0" }}>
-          <Pagination
-            onChange={(e, value) => this.pageFire(value)}
-            page={this.state.current}
-            style={{ margin: "0 auto", width: "fit-content" }}
-            count={this.state.pages}
-            color="primary"
-          />
+        <Box
+          style={{
+            width: "100%",
+            position: "sticky",
+            bottom: "0",
+            display: "flex",
+          }}
+        >
+          <Card
+            style={{
+              margin: "0 auto",
+              width: "fit-content",
+              backgroundColor: "#5971ea",
+            }}
+          >
+            <Pagination
+              onChange={(e, value) => this.pageFire(value)}
+              page={this.state.current}
+              count={this.state.pages}
+              color="primary"
+            />
+          </Card>
         </Box>
         <div className={this.state.searching ? "overlay" : "hey"}></div>
       </div>
