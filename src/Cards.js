@@ -231,7 +231,10 @@ class Cards extends Component {
                 bottom: "0px",
               }}
             >
-              <IconButton aria-label="share">
+              <IconButton
+                // onClick={(article.id) => this.sharing(article.id)}
+                aria-label="share"
+              >
                 <Share />
               </IconButton>
             </CardActions>

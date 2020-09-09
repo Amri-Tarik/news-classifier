@@ -135,6 +135,9 @@ class Article extends Component {
             justify="center"
             spacing={4}
           >
+            <Grid item xs={12}></Grid>
+            <Grid item xs={12}></Grid>
+            <Grid item xs={12}></Grid>
             <Grid item xs={12}>
               <Typography component={"span"}>
                 <Box fontWeight="400" style={{ fontSize: "calc(1em + 1vw)" }}>
@@ -184,6 +187,9 @@ class Article extends Component {
             justify="center"
             spacing={4}
           >
+            <Grid item xs={12}></Grid>
+            <Grid item xs={12}></Grid>
+            <Grid item xs={12}></Grid>
             <Grid item xs={12}>
               <Typography component={"span"}>
                 <Box fontWeight="400" style={{ fontSize: "calc(1.4em + 1vw)" }}>
