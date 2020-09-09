@@ -50,7 +50,7 @@ class Home extends Component {
 
   pageFire = (page) => {
     this.setState({ page: page });
-    let link = "http://localhost:8000/page";
+    let link = "http://localhost:8000/page/";
     let Data = { page: page };
     let breadcrump = [];
     if (this.state.breadcrump === []) {
