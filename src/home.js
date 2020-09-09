@@ -6,8 +6,23 @@ import Grid from "@material-ui/core/Grid";
 import Header from "./Header";
 import Drawer from "./drawer";
 import Button from "@material-ui/core/Button";
-import { Typography, Box, Backdrop, Card } from "@material-ui/core";
-import { Refresh, Build, Storage, Info } from "@material-ui/icons";
+import {
+  Typography,
+  Box,
+  Backdrop,
+  Card,
+  TextField,
+  Dialog,
+  IconButton,
+  Tooltip,
+} from "@material-ui/core";
+import {
+  Refresh,
+  Build,
+  Storage,
+  Info,
+  FileCopyOutlined,
+} from "@material-ui/icons";
 import Pagination from "@material-ui/lab/Pagination";
 // reference icon8.com in footer dude dont forget !!!
 
@@ -22,6 +37,8 @@ class Home extends Component {
     breadcrump: [],
     pages: 1,
     current: 1,
+    sharing: false,
+    share_url: "",
   };
 
   componentDidMount() {
@@ -36,6 +53,11 @@ class Home extends Component {
       this.fire();
     }
   }
+
+  sharing = (id) => {
+    let url = window.location.href + "art" + id;
+    this.setState({ share_url: url, sharing: true });
+  };
 
   sendToPage = (article) => {
     this.props.history.push({
@@ -188,6 +210,52 @@ class Home extends Component {
         <Backdrop style={{ zIndex: "3" }} open={this.state.loader}>
           <CircularProgress color="primary" />
         </Backdrop>
+        <Dialog
+          open={this.state.sharing}
+          onClose={() => this.setState({ sharing: false })}
+        >
+          <Card>
+            <Typography component="span">
+              <Grid style={{ padding: "10px" }} container spacing={3}>
+                <Grid
+                  style={{ fontSize: "calc(1vw + 0.6em)", fontWeight: "500" }}
+                  item
+                  xs={12}
+                >
+                  Partager l'article :
+                </Grid>
+                <Grid item xs={10}>
+                  <TextField
+                    label="lien"
+                    defaultValue={this.state.share_url}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    style={{ width: "100%" }}
+                    id="copyText"
+                    variant="filled"
+                    focused={true}
+                  />
+                </Grid>
+                <Grid item xs={1}>
+                  <Tooltip title="Copier l'adresse" placement="top">
+                    <IconButton
+                      variant="contained"
+                      color="primary"
+                      onClick={() => {
+                        var copyText = document.getElementById("copyText");
+                        copyText.select();
+                        document.execCommand("copy");
+                      }}
+                    >
+                      <FileCopyOutlined fontSize="large" />
+                    </IconButton>
+                  </Tooltip>
+                </Grid>
+              </Grid>
+            </Typography>
+          </Card>
+        </Dialog>
         <Grid
           container
           direction="row"
@@ -288,6 +356,7 @@ class Home extends Component {
               sendToPage={(article) => this.sendToPage(article)}
               articleList={this.state.articleList}
               clickables={(e, cat, search) => this.fire(e, cat, search)}
+              setShare={(id) => this.sharing(id)}
             />
           )}
           <Grid item xs={12}></Grid>
@@ -295,6 +364,7 @@ class Home extends Component {
         </Grid>
         <Box
           style={{
+            pointerEvents: "none",
             width: "100%",
             position: "sticky",
             bottom: "0",
@@ -303,6 +373,7 @@ class Home extends Component {
         >
           <Card
             style={{
+              pointerEvents: "initial",
               margin: "0 auto",
               width: "fit-content",
               backgroundColor: "#5971ea",

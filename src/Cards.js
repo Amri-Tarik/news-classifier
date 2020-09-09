@@ -52,7 +52,7 @@ import {
   Equalizer,
   Stars,
 } from "@material-ui/icons";
-import { Container, Box } from "@material-ui/core";
+import { Container, Box, Tooltip } from "@material-ui/core";
 
 const icons = {
   sources: <Web />,
@@ -127,6 +127,17 @@ const icons = {
 };
 
 class Cards extends Component {
+  sharing = (id, title) => {
+    if (navigator.share) {
+      navigator.share({
+        title: title,
+        text: "partager l'article :",
+        url: window.location.href + "art" + id,
+      });
+    } else {
+      this.props.setShare(id);
+    }
+  };
   render() {
     let chipkeys = 0;
     const { articleList } = this.props;
@@ -231,12 +242,14 @@ class Cards extends Component {
                 bottom: "0px",
               }}
             >
-              <IconButton
-                // onClick={(article.id) => this.sharing(article.id)}
-                aria-label="share"
-              >
-                <Share />
-              </IconButton>
+              <Tooltip title="Partager" placement="top">
+                <IconButton
+                  onClick={() => this.sharing(article.id, article.title)}
+                  aria-label="share"
+                >
+                  <Share />
+                </IconButton>
+              </Tooltip>
             </CardActions>
           </Card>
         </Grid>
