@@ -51,7 +51,6 @@ class Home extends Component {
   pageFire = (page) => {
     this.setState({ page: page });
     let link = "http://localhost:8000/page/";
-    let Data = { page: page };
     let breadcrump = [];
     if (this.state.breadcrump === []) {
       breadcrump = ["page " + page];
@@ -60,7 +59,7 @@ class Home extends Component {
     }
     this.setState({ breadcrump: breadcrump });
     axios
-      .post(link, Data)
+      .post(link, page)
       .then((response) => {
         return JSON.parse(response.data);
       })

@@ -8,8 +8,9 @@ import {
   Grid,
   Backdrop,
   CircularProgress,
+  Button,
 } from "@material-ui/core";
-import { Reply } from "@material-ui/icons";
+import { Reply, Info, Refresh, Build, Storage } from "@material-ui/icons";
 import axios from "axios";
 // import { Button } from "@material-ui/core";
 
@@ -126,71 +127,149 @@ class Article extends Component {
         <Backdrop style={{ zIndex: "3" }} open={this.state.loader}>
           <CircularProgress color="primary" />
         </Backdrop>
-        <Box
-          className="flexing smoothdrop"
-          style={{
-            position: "absolute",
-            left: "-8px",
-            top: "-1vh",
-            height: "100vh",
-          }}
-        >
-          <Card
-            style={{
-              width: "100vw",
-              height: "10vh",
-              position: "sticky",
-            }}
-            className={this.state.article.source}
+        {this.state.server_down ? (
+          <Grid
+            container
+            direction="column"
+            alignItems="center"
+            justify="center"
+            spacing={4}
           >
-            <Grid container>
-              <Grid
-                item
-                xs={6}
+            <Grid item xs={12}>
+              <Typography component={"span"}>
+                <Box fontWeight="400" style={{ fontSize: "calc(1em + 1vw)" }}>
+                  looks like the server is down !
+                </Box>
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography
+                component={"span"}
+                style={{ alignContent: "center", justifyContent: "center" }}
+              >
+                <Box style={{ fontSize: "calc(0.5em + 1vw)", zIndex: "2" }}>
+                  we'll try fixing it as fast as possible !
+                  <div
+                    style={{ zIndex: "1", display: "inline-block" }}
+                    className="fixinparent"
+                  >
+                    <Build color="primary" className="fixin" />
+                  </div>
+                  <Storage />
+                </Box>
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                variant="contained"
+                startIcon={<Refresh />}
+                color="primary"
                 onClick={(e) =>
-                  this.fire(e, { tag: this.state.article.source }, "")
+                  this.fire(
+                    e,
+                    this.state.server_down.cat,
+                    this.state.server_down.search
+                  )
                 }
               >
-                <Typography
-                  className="breadcrump"
-                  style={{ fontWeight: 500, fontSize: "1.2em" }}
-                >
-                  {this.state.article.source}
-                </Typography>
-              </Grid>
-              {this.state.from_list ? (
+                Retry Search
+              </Button>
+            </Grid>
+          </Grid>
+        ) : this.state.no_results ? (
+          <Grid
+            container
+            direction="column"
+            alignItems="center"
+            justify="center"
+            spacing={4}
+          >
+            <Grid item xs={12}>
+              <Typography component={"span"}>
+                <Box fontWeight="400" style={{ fontSize: "calc(1.4em + 1vw)" }}>
+                  no results :(
+                </Box>
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography component={"span"}>
+                <Info fontSize="small" />
+                <span style={{ fontSize: "calc(0.7em + 1vw)" }}>
+                  {"    "}the article you're looking for doesn't exist !
+                </span>
+              </Typography>
+            </Grid>
+          </Grid>
+        ) : this.state.article.source !== "placeholder" ? (
+          <Box
+            className="flexing smoothdrop"
+            style={{
+              position: "absolute",
+              left: "-8px",
+              top: "-1vh",
+              height: "100vh",
+            }}
+          >
+            <Card
+              style={{
+                width: "100vw",
+                height: "10vh",
+                position: "sticky",
+              }}
+              className={this.state.article.source}
+            >
+              <Grid container>
                 <Grid
                   item
                   xs={6}
                   onClick={(e) =>
-                    this.props.history.push({
-                      pathname: "/",
-                      state: this.props.location.state.backup,
-                    })
+                    this.fire(e, { tag: this.state.article.source }, "")
                   }
                 >
                   <Typography
                     className="breadcrump"
-                    style={{
-                      fontWeight: 500,
-                      fontSize: "1.2em",
-                      float: "right",
-                    }}
+                    style={{ fontWeight: 500, fontSize: "1.2em" }}
                   >
-                    <Reply style={{ position: "relative", bottom: "-5px" }} />
-                    retourner a la liste
+                    {this.state.article.source}
                   </Typography>
                 </Grid>
-              ) : (
-                <Grid item xs={6}></Grid>
-              )}
-            </Grid>
-          </Card>
-          <iframe
-            title={this.state.article.title}
-            src={this.state.article.content}
-          />
-        </Box>
+                {this.state.from_list ? (
+                  <Grid
+                    item
+                    xs={6}
+                    onClick={(e) =>
+                      this.props.history.push({
+                        pathname: "/",
+                        state: this.props.location.state.backup,
+                      })
+                    }
+                  >
+                    <Typography
+                      className="breadcrump"
+                      style={{
+                        fontWeight: 500,
+                        fontSize: "1.2em",
+                        float: "right",
+                      }}
+                    >
+                      <Reply style={{ position: "relative", bottom: "-5px" }} />
+                      retourner a la liste
+                    </Typography>
+                  </Grid>
+                ) : (
+                  <Grid item xs={6}></Grid>
+                )}
+              </Grid>
+            </Card>
+            <iframe
+              title={this.state.article.title}
+              src={this.state.article.content}
+            />
+          </Box>
+        ) : (
+          <Box></Box>
+        )}
+        <div className={this.state.searching ? "overlay" : "hey"}></div>
       </div>
     );
   }
