@@ -1,8 +1,16 @@
 import React, { Component } from "react";
 import Header from "./HeaderArticle";
 import Drawer from "./drawer";
-import { Typography, Box, Card, Grid } from "@material-ui/core";
+import {
+  Typography,
+  Box,
+  Card,
+  Grid,
+  Backdrop,
+  CircularProgress,
+} from "@material-ui/core";
 import { Reply } from "@material-ui/icons";
+import axios from "axios";
 // import { Button } from "@material-ui/core";
 
 class Article extends Component {
@@ -10,19 +18,58 @@ class Article extends Component {
     id: "none",
     anchor: false,
     searching: false,
+    from_list: false,
+    no_results: false,
+    server_down: false,
+    loader: true,
+    article: {
+      source: "placeholder",
+      content: "placeholder",
+      title: "placeholder",
+    },
   };
   componentDidMount() {
     let id = this.props.location.pathname.replace("/art", "");
     if (this.props.location.state) {
       this.setState({
+        from_list: true,
         id: id,
         backup: this.props.location.state.backup,
         article: this.props.location.state.article,
+        loader: false,
       });
     } else {
-      this.setState({
-        id: id,
-      });
+      let link = "http://localhost:8000/id/";
+      let data = { id: id };
+      axios
+        .post(link, data)
+        .then((response) => {
+          return JSON.parse(response.data);
+        })
+        .then((response) => {
+          if (response.dataError) {
+            this.setState({ no_results: true });
+            this.setState({ loader: false });
+          } else {
+            this.setState({
+              id: id,
+              article: response.article,
+            });
+            this.setState({ loader: false });
+          }
+        })
+        .catch((error) => {
+          if (!error.response) {
+            this.setState({
+              server_down: true,
+            });
+            this.setState({ loader: false });
+            console.log("Error: Network Error");
+          } else {
+            this.setState({ loader: false });
+            console.log(error.response.data.message);
+          }
+        });
     }
   }
 
@@ -55,9 +102,14 @@ class Article extends Component {
     });
   };
   render() {
-    let { source, content, title } = this.props.location.state.article;
     return (
-      <div>
+      <div
+        onKeyDown={(e) => {
+          if (e.key === "Escape") {
+            this.setState({ searching: false });
+          }
+        }}
+      >
         <Drawer
           anchor={this.state.anchor}
           clickables={(e, cat, search) => this.fire(e, cat, search)}
@@ -71,6 +123,9 @@ class Article extends Component {
           searching={this.state.searching}
           drawer={this.toggleDrawer}
         />
+        <Backdrop style={{ zIndex: "3" }} open={this.state.loader}>
+          <CircularProgress color="primary" />
+        </Backdrop>
         <Box
           className="flexing smoothdrop"
           style={{
@@ -86,42 +141,55 @@ class Article extends Component {
               height: "10vh",
               position: "sticky",
             }}
-            className={source}
+            className={this.state.article.source}
           >
             <Grid container>
               <Grid
                 item
                 xs={6}
-                onClick={(e) => this.fire(e, { tag: source }, "")}
+                onClick={(e) =>
+                  this.fire(e, { tag: this.state.article.source }, "")
+                }
               >
                 <Typography
                   className="breadcrump"
                   style={{ fontWeight: 500, fontSize: "1.2em" }}
                 >
-                  {source}
+                  {this.state.article.source}
                 </Typography>
               </Grid>
-              <Grid
-                item
-                xs={6}
-                onClick={(e) =>
-                  this.props.history.push({
-                    pathname: "/",
-                    state: this.props.location.state.backup,
-                  })
-                }
-              >
-                <Typography
-                  className="breadcrump"
-                  style={{ fontWeight: 500, fontSize: "1.2em", float: "right" }}
+              {this.state.from_list ? (
+                <Grid
+                  item
+                  xs={6}
+                  onClick={(e) =>
+                    this.props.history.push({
+                      pathname: "/",
+                      state: this.props.location.state.backup,
+                    })
+                  }
                 >
-                  <Reply style={{ position: "relative", bottom: "-5px" }} />
-                  retourner a la liste
-                </Typography>
-              </Grid>
+                  <Typography
+                    className="breadcrump"
+                    style={{
+                      fontWeight: 500,
+                      fontSize: "1.2em",
+                      float: "right",
+                    }}
+                  >
+                    <Reply style={{ position: "relative", bottom: "-5px" }} />
+                    retourner a la liste
+                  </Typography>
+                </Grid>
+              ) : (
+                <Grid item xs={6}></Grid>
+              )}
             </Grid>
           </Card>
-          <iframe title={title} src={content} />
+          <iframe
+            title={this.state.article.title}
+            src={this.state.article.content}
+          />
         </Box>
       </div>
     );
