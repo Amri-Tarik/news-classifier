@@ -39,6 +39,7 @@ class Home extends Component {
     current: 1,
     sharing: false,
     share_url: "",
+    session_key: "empty",
   };
 
   componentDidMount() {
@@ -81,7 +82,7 @@ class Home extends Component {
     }
     this.setState({ breadcrump: breadcrump });
     axios
-      .post(link, { page: page })
+      .post(link, { page: page, session_key: this.state.session_key })
       .then((response) => {
         return JSON.parse(response.data);
       })
@@ -148,6 +149,7 @@ class Home extends Component {
           this.setState({
             articleList: response.articleList,
             pages: response.pages,
+            session_key: response.session_key,
           });
         }
         this.setState({ loader: false });
