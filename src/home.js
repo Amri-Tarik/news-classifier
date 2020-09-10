@@ -201,7 +201,7 @@ class Home extends Component {
             pointerEvents: "none",
             width: "100%",
             position: "sticky",
-            top: "93vh",
+            top: "calc(var(--vh, 1vh) * 93)",
             display: "flex",
           }}
         >
@@ -296,7 +296,6 @@ class Home extends Component {
           className="adjustable"
         >
           <Grid item xs={12}></Grid>
-          <Grid item xs={12}></Grid>
 
           {this.state.breadcrump.length ? (
             <>
@@ -308,81 +307,59 @@ class Home extends Component {
           )}
 
           {this.state.server_down.value ? (
-            <Grid
-              container
-              direction="column"
-              alignItems="center"
-              justify="center"
-              spacing={4}
-            >
-              <Grid item xs={12}>
-                <Typography component={"span"}>
-                  <Box fontWeight="400" style={{ fontSize: "calc(1em + 1vw)" }}>
-                    looks like the server is down !
-                  </Box>
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <Typography
-                  component={"span"}
-                  style={{ alignContent: "center", justifyContent: "center" }}
-                >
-                  <Box style={{ fontSize: "calc(0.5em + 1vw)", zIndex: "2" }}>
-                    we'll try fixing it as fast as possible !
-                    <div
-                      style={{ zIndex: "1", display: "inline-block" }}
-                      className="fixinparent"
-                    >
-                      <Build color="primary" className="fixin" />
-                    </div>
-                    <Storage />
-                  </Box>
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <Button
-                  variant="contained"
-                  startIcon={<Refresh />}
-                  color="primary"
-                  onClick={(e) =>
-                    this.fire(
-                      e,
-                      this.state.server_down.cat,
-                      this.state.server_down.search
-                    )
-                  }
-                >
-                  Retry Search
-                </Button>
-              </Grid>
-            </Grid>
-          ) : this.state.no_results ? (
-            <Grid
-              container
-              direction="column"
-              alignItems="center"
-              justify="center"
-              spacing={4}
-            >
-              <Grid item xs={12} md={12}>
-                <Typography component={"span"}>
-                  <Box
-                    fontWeight="400"
-                    style={{ fontSize: "calc(1.4em + 1vw)" }}
+            <Box style={{ textAlign: "center" }}>
+              <Typography component={"span"}>
+                <Box fontWeight="400" style={{ fontSize: "calc(1em + 1vw)" }}>
+                  looks like the server is down !
+                </Box>
+              </Typography>
+              <br />
+              <Typography
+                component={"span"}
+                style={{ alignContent: "center", justifyContent: "center" }}
+              >
+                <Box style={{ fontSize: "calc(0.5em + 1vw)", zIndex: "2" }}>
+                  we'll try fixing it as fast as possible !
+                  <div
+                    style={{ zIndex: "1", display: "inline-block" }}
+                    className="fixinparent"
                   >
-                    no results :(
-                  </Box>
-                </Typography>
-              </Grid>
-              <Grid item xs={12} md={12}>
-                <Typography component={"span"}>
-                  <Info fontSize="small" />
-                  <span style={{ fontSize: "calc(0.7em + 1vw)" }}>
-                    {"    "}try to be more broad !
-                  </span>
-                </Typography>
-              </Grid>
-            </Grid>
+                    <Build color="primary" className="fixin" />
+                  </div>
+                  <Storage />
+                </Box>
+              </Typography>
+              <br />
+              <Button
+                variant="contained"
+                startIcon={<Refresh />}
+                color="primary"
+                onClick={(e) =>
+                  this.fire(
+                    e,
+                    this.state.server_down.cat,
+                    this.state.server_down.search
+                  )
+                }
+              >
+                Retry Search
+              </Button>
+            </Box>
+          ) : this.state.no_results ? (
+            <Box style={{ textAlign: "center" }}>
+              <Typography component="span">
+                <Box fontWeight="400" style={{ fontSize: "calc(1.4em + 1vw)" }}>
+                  no results :(
+                </Box>
+              </Typography>
+              <br />
+              <Typography>
+                <Info fontSize="small" />
+                <span style={{ fontSize: "calc(0.7em + 1vw)" }}>
+                  {"    "}try to be more broad !
+                </span>
+              </Typography>
+            </Box>
           ) : (
             <Cards
               sendToPage={(article) => this.sendToPage(article)}

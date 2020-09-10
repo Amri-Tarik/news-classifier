@@ -41,9 +41,9 @@
 .paperAnim {
   align-self: center;
   position: fixed;
-  max-height: 80vh;
+  max-height: calc(var(--vh, 1vh) * 80);
   overflow: auto;
-  top: 22vh;
+  top: calc(var(--vh, 1vh) * 22);
   max-width: max-content !important;
   width: 95vw;
   animation-name: catslide;
@@ -135,7 +135,7 @@
 .breadcrump {
   margin-left: 4vw !important;
   margin-right: 4vw !important;
-  margin-top: 4vh !important;
+  margin-top: calc(var(--vh, 1vh) * 4) !important;
 }
 
 .smoothdrop {
@@ -211,7 +211,7 @@
 
 .searchgrid {
   position: fixed;
-  top: 15vh;
+  top: calc(var(--vh, 1vh) * 15);
   z-index: 2;
   width: 40%;
 }
@@ -230,7 +230,7 @@
 
 .adjustable {
   margin-bottom: calc(230px + 50px) !important;
-  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
 }
 .adjustable2 {
   position: absolute;
@@ -254,7 +254,7 @@
   .searchgrid {
     top: 10%;
     z-index: 2;
-    width: 40%;
+    width: auto;
     transform: scale(1);
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
@@ -264,23 +264,23 @@
   .paperAnim {
     align-self: center;
     position: fixed;
-    height: 50vh;
-    top: 20vh;
-    width: 60vw !important;
+    height: calc(var(--vh, 1vh) * 80);
+    top: calc(var(--vh, 1vh) * 8);
+    width: 80vw !important;
     overflow: auto;
     animation-name: catslide;
     animation-duration: 4s;
     animation-fill-mode: forwards !important;
     -webkit-animation-fill-mode: forwards !important;
-    transform: scale(1.5) !important;
+    /* transform: scale(1.5) !important;
     -webkit-transform: scale(1.5) !important;
     -moz-transform: scale(1.5) !important;
     -ms-transform: scale(1.5) !important;
-    -o-transform: scale(1.5) !important;
+    -o-transform: scale(1.5) !important; */
   }
   .breadcrump {
     margin-left: 8vw !important;
-    margin-top: 5vh !important;
+    /* margin-top: 5vh !important; */
   }
   .smoothdrop {
     animation-name: smoothslide;
