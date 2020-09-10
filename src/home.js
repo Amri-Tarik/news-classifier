@@ -72,8 +72,8 @@ class Home extends Component {
   };
 
   pageFire = (page) => {
-    this.setState({ page: page });
-    let link = "http://localhost:8000/";
+    this.setState({ current: page });
+    let link = "http://localhost:8000/page/";
     let breadcrump = [];
     if (this.state.breadcrump === []) {
       breadcrump = ["page " + page];
@@ -93,7 +93,6 @@ class Home extends Component {
         } else {
           this.setState({
             articleList: response.articleList,
-            pages: response.pages,
           });
         }
         this.setState({ loader: false });
@@ -134,6 +133,7 @@ class Home extends Component {
       server_down: { value: false, cat: cat, search: search },
       loader: true,
       no_results: false,
+      current: 1,
     });
     let Data = { search, cat };
     axios
@@ -153,6 +153,7 @@ class Home extends Component {
           });
         }
         this.setState({ loader: false });
+        console.log(document.getElementById("site-footer").offsetHeight);
       })
       .catch((error) => {
         if (!error.response) {
@@ -195,6 +196,32 @@ class Home extends Component {
           }
         }}
       >
+        <Box
+          style={{
+            zIndex: "2",
+            pointerEvents: "none",
+            width: "100%",
+            position: "sticky",
+            top: "93vh",
+            display: "flex",
+          }}
+        >
+          <Card
+            style={{
+              pointerEvents: "initial",
+              margin: "0 auto",
+              width: "fit-content",
+              backgroundColor: "#5971ea",
+            }}
+          >
+            <Pagination
+              onChange={(e, value) => this.pageFire(value)}
+              page={this.state.current}
+              count={this.state.pages}
+              color="primary"
+            />
+          </Card>
+        </Box>
         <Drawer
           anchor={this.state.anchor}
           clickables={(e, cat, search) => this.fire(e, cat, search)}
@@ -258,12 +285,16 @@ class Home extends Component {
             </Typography>
           </Card>
         </Dialog>
+
         <Grid
+          component={Card}
+          elevation={4}
           container
           direction="row"
           justify="center"
           alignItems="stretch"
           spacing={4}
+          className="adjustable"
         >
           <Grid item xs={12}></Grid>
           <Grid item xs={12}></Grid>
@@ -334,7 +365,7 @@ class Home extends Component {
               justify="center"
               spacing={4}
             >
-              <Grid item xs={12}>
+              <Grid item xs={12} md={12}>
                 <Typography component={"span"}>
                   <Box
                     fontWeight="400"
@@ -344,7 +375,7 @@ class Home extends Component {
                   </Box>
                 </Typography>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} md={12}>
                 <Typography component={"span"}>
                   <Info fontSize="small" />
                   <span style={{ fontSize: "calc(0.7em + 1vw)" }}>
@@ -364,31 +395,7 @@ class Home extends Component {
           <Grid item xs={12}></Grid>
           <Grid item xs={12}></Grid>
         </Grid>
-        <Box
-          style={{
-            pointerEvents: "none",
-            width: "100%",
-            position: "sticky",
-            bottom: "0",
-            display: "flex",
-          }}
-        >
-          <Card
-            style={{
-              pointerEvents: "initial",
-              margin: "0 auto",
-              width: "fit-content",
-              backgroundColor: "#5971ea",
-            }}
-          >
-            <Pagination
-              onChange={(e, value) => this.pageFire(value)}
-              page={this.state.current}
-              count={this.state.pages}
-              color="primary"
-            />
-          </Card>
-        </Box>
+
         <div className={this.state.searching ? "overlay" : "hey"}></div>
       </div>
     );

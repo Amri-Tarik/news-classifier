@@ -32,6 +32,13 @@ class Article extends Component {
   componentDidMount() {
     let id = this.props.location.pathname.replace("/art", "");
     if (this.props.location.state) {
+      if (
+        this.props.location.state.article.content.search("le360.ma/monde") !==
+          -1 ||
+        this.props.location.state.article.content.search("afrique.le360") !== -1
+      ) {
+        window.location.href = this.props.location.state.article.content;
+      }
       this.setState({
         from_list: true,
         id: id,
@@ -52,6 +59,12 @@ class Article extends Component {
             this.setState({ no_results: true });
             this.setState({ loader: false });
           } else {
+            if (
+              response.article.content.search("le360.ma/monde") !== -1 ||
+              response.article.content.search("afrique.le360") !== -1
+            ) {
+              window.location.href = response.article.content;
+            }
             this.setState({
               id: id,
               article: response.article,
