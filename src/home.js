@@ -153,7 +153,6 @@ class Home extends Component {
           });
         }
         this.setState({ loader: false });
-        console.log(document.getElementById("site-footer").offsetHeight);
       })
       .catch((error) => {
         if (!error.response) {

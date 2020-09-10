@@ -10,6 +10,8 @@ import {
   Instagram,
   WhatsApp,
 } from "@material-ui/icons";
+import { mdiReact, mdiLanguagePython } from "@mdi/js";
+import Icon from "@mdi/react";
 
 class App extends Component {
   render() {
@@ -46,7 +48,7 @@ class App extends Component {
                 </Typography>
               </Grid>
               <Grid item xs={1} md={2}></Grid>
-              <Grid item xs={10} md={4}>
+              <Grid item xs={5} md={2}>
                 <Typography>
                   {" "}
                   <span
@@ -56,7 +58,7 @@ class App extends Component {
                       textDecoration: "underline",
                     }}
                   >
-                    NOUS CONTACTER :
+                    NOUS CONTACTER:
                   </span>{" "}
                   <br />
                   <Button startIcon={<Facebook />}>Facebook</Button>
@@ -66,6 +68,53 @@ class App extends Component {
                   <Button startIcon={<Instagram />}>Instagram</Button>
                   <br />
                   <Button startIcon={<WhatsApp />}>Whatsapp</Button>
+                </Typography>
+              </Grid>
+              <Grid item xs={5} md={2}>
+                <Typography>
+                  {" "}
+                  <span
+                    style={{
+                      fontWeight: "500",
+                      fontSize: "1.2em",
+                      textDecoration: "underline",
+                    }}
+                  >
+                    TECHNOLOGIES:
+                  </span>{" "}
+                  <br />
+                  <Button
+                    startIcon={<Icon path={mdiReact} title="React" size={1} />}
+                  >
+                    React
+                  </Button>
+                  <br />
+                  <Button
+                    startIcon={
+                      <Icon path={mdiLanguagePython} title="Python" size={1} />
+                    }
+                  >
+                    Python
+                  </Button>
+                  <br />
+                  <Button
+                    startIcon={
+                      <img
+                        alt="Django"
+                        src="https://img.icons8.com/material-sharp/24/000000/django.png"
+                      />
+                    }
+                  >
+                    Django
+                  </Button>
+                  <br />
+                  <Button
+                    startIcon={
+                      <Icon path={mdiLanguagePython} title="sklearn" size={1} />
+                    }
+                  >
+                    sklearn
+                  </Button>
                 </Typography>
               </Grid>
               <Grid item xs={1} md={1}></Grid>

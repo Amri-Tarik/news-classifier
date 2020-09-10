@@ -106,7 +106,6 @@ class Article extends Component {
   };
 
   fire = (e, cat, search) => {
-    console.log(cat);
     this.props.history.push({
       pathname: "/",
       state: {
