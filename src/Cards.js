@@ -51,6 +51,7 @@ import {
   LocalLibrary,
   Equalizer,
   Stars,
+  Visibility,
 } from "@material-ui/icons";
 import { Container, Box, Tooltip } from "@material-ui/core";
 
@@ -156,6 +157,7 @@ class Cards extends Component {
         );
         chipkeys++;
       });
+      console.log(article.title + " " + article.views);
       return (
         <Grid item key={keys} md={4} sm={6} xs={10}>
           <Card
@@ -240,6 +242,7 @@ class Cards extends Component {
                 background: "WhiteSmoke",
                 position: "absolute",
                 bottom: "0px",
+                width: "100%",
               }}
             >
               <Tooltip title="Partager" placement="top">
@@ -250,6 +253,26 @@ class Cards extends Component {
                   <Share />
                 </IconButton>
               </Tooltip>
+              <span
+                style={{
+                  position: "absolute",
+                  right: "10%",
+                  marginLeft: "auto",
+                  color: "grey",
+                }}
+              >
+                <Typography
+                  component="span"
+                  style={{
+                    position: "relative",
+                    bottom: "0.4em",
+                    marginRight: "10px",
+                  }}
+                >
+                  {article.views}
+                </Typography>
+                <Visibility />
+              </span>
             </CardActions>
           </Card>
         </Grid>

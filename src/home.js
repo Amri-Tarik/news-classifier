@@ -50,8 +50,9 @@ class Home extends Component {
       } else {
         this.setState(this.props.location.state);
       }
+      window.history.replaceState(null, "");
     } else {
-      this.fire();
+      this.fire("temp", {}, "");
     }
   }
 

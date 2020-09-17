@@ -39,13 +39,16 @@ class Article extends Component {
       ) {
         window.location.href = this.props.location.state.article.content;
       }
+      let article = this.props.location.state.article;
+      article.views = Number(article.views) + 1;
       this.setState({
         from_list: true,
         id: id,
         backup: this.props.location.state.backup,
-        article: this.props.location.state.article,
+        article: article,
         loader: false,
       });
+      axios.post("http://localhost:8000/view/", { id: id });
     } else {
       let link = "http://localhost:8000/id/";
       let data = { id: id };
