@@ -216,6 +216,10 @@
   width: 40%;
 }
 
+.App {
+  padding: 1px;
+}
+
 #site-footer {
   padding: 25px 0;
   font-size: 85%;
